@@ -8,7 +8,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useDebounce } from "./useDebounce";
-import GeoApify from "./GeoApify";
+import GeoDbAutocomplete from "./GeoDbAutocomplete";
 
 const API_KEY = "d163b4fb3ccea3df7eff1ce2046ec130";
 const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather`;
@@ -126,35 +126,6 @@ function WeatherApp() {
         <Typography variant="h4" gutterBottom>
           Weather App
         </Typography>
-        <GeoApify
-          onInputChange={(event, newInputValue) => {
-            setCity(newInputValue);
-            if (newInputValue) {
-              fetchSuggestions(newInputValue);
-            }
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Enter city name"
-              variant="outlined"
-              fullWidth
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loadingSuggestions ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-            />
-          )}
-        />
         <Autocomplete
           id="city-autocomplete"
           options={suggestions}
@@ -187,6 +158,7 @@ function WeatherApp() {
             />
           )}
         />
+        <GeoDbAutocomplete />
         {error && (
           <Typography variant="body1" color="error">
             {error}
