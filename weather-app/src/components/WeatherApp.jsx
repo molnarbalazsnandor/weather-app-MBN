@@ -7,7 +7,6 @@ import {
   Autocomplete,
   CircularProgress,
 } from "@mui/material";
-import { useDebounce } from "./useDebounce";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
 
 const API_KEY = "d163b4fb3ccea3df7eff1ce2046ec130";
@@ -16,37 +15,36 @@ const HOURLY_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast`;
 const SUGGESTION_API_URL = `https://api.openweathermap.org/data/2.5/find`;
 
 function WeatherApp() {
-  const [city, setCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
   const [weather, setWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
-  const debouncedCity = useDebounce(city, 300);
 
   useEffect(() => {
-    if (debouncedCity) {
-      fetchWeather();
+    if (selectedCity) {
+      fetchWeather(selectedCity.label);
     }
-  }, [debouncedCity]);
+  }, [selectedCity]);
 
-  const fetchWeather = async () => {
+  const fetchWeather = async (cityName) => {
     try {
       setError(null);
 
-      // Fetch current weather data
+      // Fetch current weather data based on the selected city
       const currentWeatherResponse = await fetch(
-        `${CURRENT_WEATHER_URL}?q=${city}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
+        `${CURRENT_WEATHER_URL}?q=${cityName}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
       );
       const currentWeatherData = await currentWeatherResponse.json();
 
       if (currentWeatherData.main) {
         setWeather(currentWeatherData);
 
-        // Fetch hourly weather forecast data
+        // Fetch hourly weather forecast data based on the selected city
         const hourlyForecastResponse = await fetch(
-          `${HOURLY_WEATHER_URL}?q=${city}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
+          `${HOURLY_WEATHER_URL}?q=${cityName}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
         );
         const hourlyForecastData = await hourlyForecastResponse.json();
 
@@ -68,7 +66,7 @@ function WeatherApp() {
 
           setHourlyForecast(twoHourlyForecast);
 
-          // Fetch weekly weather forecast data
+          // Fetch weekly weather forecast data based on the selected city
           const weeklyForecast = hourlyForecastData.list.filter((forecast) =>
             forecast.dt_txt.includes("12:00:00")
           ); // Assuming 12:00:00 represents the daily forecast
@@ -126,39 +124,9 @@ function WeatherApp() {
         <Typography variant="h4" gutterBottom>
           Weather App
         </Typography>
-        <Autocomplete
-          id="city-autocomplete"
-          options={suggestions}
-          loading={loadingSuggestions}
-          onInputChange={(event, newInputValue) => {
-            setCity(newInputValue);
-            if (newInputValue) {
-              fetchSuggestions(newInputValue);
-            }
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Enter city name"
-              variant="outlined"
-              fullWidth
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loadingSuggestions ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-            />
-          )}
+        <GeoDbAutocomplete
+          onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
         />
-        <GeoDbAutocomplete />
         {error && (
           <Typography variant="body1" color="error">
             {error}

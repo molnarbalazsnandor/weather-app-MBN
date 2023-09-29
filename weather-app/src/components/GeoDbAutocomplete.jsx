@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiOptions, GEO_API_URL } from "./../api";
 
-const GeoDbAutocomplete = ({ onSearchChange }) => {
+const GeoDbAutocomplete = ({ onCitySelect }) => {
   const [search, setSearch] = useState(null);
 
   const loadOptions = (inputValue) => {
@@ -23,9 +23,9 @@ const GeoDbAutocomplete = ({ onSearchChange }) => {
       });
   };
 
-  const handleOnChange = (searchData) => {
-    setSearch(searchData);
-    onSearchChange(searchData);
+  const handleOnChange = (selectedOption) => {
+    setSearch(selectedOption);
+    onCitySelect(selectedOption);
   };
 
   return (
@@ -35,6 +35,7 @@ const GeoDbAutocomplete = ({ onSearchChange }) => {
       value={search}
       onChange={handleOnChange}
       loadOptions={loadOptions}
+      defaultOptions={[]}
     />
   );
 };
