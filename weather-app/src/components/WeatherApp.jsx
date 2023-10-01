@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -8,11 +8,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
-
-const API_KEY = "d163b4fb3ccea3df7eff1ce2046ec130";
-const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather`;
-const HOURLY_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast`;
-const SUGGESTION_API_URL = `https://api.openweathermap.org/data/2.5/find`;
+import OpenWeather from "./OpenWeather";
 
 function WeatherApp() {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -22,87 +18,6 @@ function WeatherApp() {
   const [error, setError] = useState(null);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
-
-  useEffect(() => {
-    if (selectedCity) {
-      fetchWeather(selectedCity.label);
-    }
-  }, [selectedCity]);
-
-  const fetchWeather = async (cityName) => {
-    try {
-      setError(null);
-
-      // Fetch current weather data based on the selected city
-      const currentWeatherResponse = await fetch(
-        `${CURRENT_WEATHER_URL}?q=${cityName}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
-      );
-      const currentWeatherData = await currentWeatherResponse.json();
-
-      if (currentWeatherData.main) {
-        setWeather(currentWeatherData);
-
-        // Fetch hourly weather forecast data based on the selected city
-        const hourlyForecastResponse = await fetch(
-          `${HOURLY_WEATHER_URL}?q=${cityName}&appid=${API_KEY}&units=metric` // Use metric units for Celsius
-        );
-        const hourlyForecastData = await hourlyForecastResponse.json();
-
-        if (hourlyForecastData.list) {
-          // Filter hourly data for the current day
-          const currentDate = new Date();
-          const currentDay = currentDate.getDate();
-          const filteredHourlyForecast = hourlyForecastData.list.filter(
-            (forecast) => {
-              const forecastDate = new Date(forecast.dt * 1000);
-              return forecastDate.getDate() === currentDay;
-            }
-          );
-
-          // Extract 2-hourly data from the filtered list
-          const twoHourlyForecast = filteredHourlyForecast.filter(
-            (forecast, index) => index % 2 === 0
-          );
-
-          setHourlyForecast(twoHourlyForecast);
-
-          // Fetch weekly weather forecast data based on the selected city
-          const weeklyForecast = hourlyForecastData.list.filter((forecast) =>
-            forecast.dt_txt.includes("12:00:00")
-          ); // Assuming 12:00:00 represents the daily forecast
-          setWeeklyForecast(weeklyForecast);
-        } else {
-          setError("Hourly forecast data not found");
-        }
-      } else {
-        setError("Weather data not found");
-      }
-    } catch (error) {
-      setError("Error fetching weather");
-      console.error("Error fetching weather:", error);
-    }
-  };
-
-  const fetchSuggestions = async (inputValue) => {
-    try {
-      setLoadingSuggestions(true);
-      const response = await fetch(
-        `${SUGGESTION_API_URL}?q=${inputValue}&appid=${API_KEY}`
-      );
-      const data = await response.json();
-      if (data.list) {
-        const cityNames = data.list.map((item) => item.name);
-        setSuggestions(cityNames.slice(0, 5));
-      } else {
-        setSuggestions([]);
-      }
-    } catch (error) {
-      setSuggestions([]);
-      console.error("Error fetching suggestions:", error);
-    } finally {
-      setLoadingSuggestions(false);
-    }
-  };
 
   return (
     <Box
@@ -127,6 +42,17 @@ function WeatherApp() {
         <GeoDbAutocomplete
           onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
         />
+        {selectedCity && (
+          <OpenWeather
+            selectedCity={selectedCity}
+            setError={setError}
+            setWeather={setWeather}
+            setHourlyForecast={setHourlyForecast}
+            setWeeklyForecast={setWeeklyForecast}
+            setLoadingSuggestions={setLoadingSuggestions}
+            setSuggestions={setSuggestions}
+          />
+        )}
         {error && (
           <Typography variant="body1" color="error">
             {error}
