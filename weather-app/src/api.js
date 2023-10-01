@@ -12,5 +12,3 @@ export const WEATHER_API_KEY = "d163b4fb3ccea3df7eff1ce2046ec130";
 export const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather`;
 
 export const HOURLY_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast`;
-
-export const SUGGESTION_API_URL = `https://api.openweathermap.org/data/2.5/find`;

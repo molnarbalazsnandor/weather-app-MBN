@@ -3,7 +3,6 @@ import {
   WEATHER_API_KEY,
   CURRENT_WEATHER_URL,
   HOURLY_WEATHER_URL,
-  SUGGESTION_API_URL,
 } from "../api";
 
 const fetchWeather = async (
@@ -67,31 +66,6 @@ const fetchWeather = async (
   }
 };
 
-const fetchSuggestions = async (
-  inputValue,
-  setLoadingSuggestions,
-  setSuggestions
-) => {
-  try {
-    setLoadingSuggestions(true);
-    const response = await fetch(
-      `${SUGGESTION_API_URL}?q=${inputValue}&appid=${WEATHER_API_KEY}`
-    );
-    const data = await response.json();
-    if (data.list) {
-      const cityNames = data.list.map((item) => item.name);
-      setSuggestions(cityNames.slice(0, 5));
-    } else {
-      setSuggestions([]);
-    }
-  } catch (error) {
-    setSuggestions([]);
-    console.error("Error fetching suggestions:", error);
-  } finally {
-    setLoadingSuggestions(false);
-  }
-};
-
 const OpenWeather = ({
   selectedCity,
   setError,
@@ -109,7 +83,6 @@ const OpenWeather = ({
       setHourlyForecast,
       setWeeklyForecast
     );
-    fetchSuggestions(selectedCity.label, setLoadingSuggestions, setSuggestions);
   }, [selectedCity]);
 
   return null;
