@@ -54,6 +54,12 @@ const fetchWeather = async (
           forecast.dt_txt.includes("12:00:00")
         ); // Assuming 12:00:00 represents the daily forecast
         setWeeklyForecast(weeklyForecast);
+
+        // Log the data after successful fetch
+        console.log(selectedCity.label);
+        console.log("Weather Data:", currentWeatherData);
+        console.log("Hourly Forecast Data:", twoHourlyForecast);
+        console.log("Weekly Forecast Data:", weeklyForecast);
       } else {
         setError("Hourly forecast data not found");
       }
