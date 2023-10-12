@@ -11,6 +11,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
 import OpenWeather from "./OpenWeather";
+import Icon from "./Icon";
 
 function WeatherApp() {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -21,6 +22,7 @@ function WeatherApp() {
 
   return (
     <Box className="weather-app">
+      <Icon name="cloudy" size={40} fill="blue" />
       <Paper
         elevation={3}
         style={{
@@ -121,7 +123,9 @@ function WeatherApp() {
                 </Typography>
                 <Typography variant="body1">
                   Wind Speed:{" "}
-                  {weather.wind ? Math.round(weather.wind.speed) : "N/A"} m/s
+                  {weather.wind
+                    ? `${(weather.wind.speed * 3.6).toFixed(1)} km/h`
+                    : "N/A"}
                 </Typography>
               </div>
             </AccordionDetails>
@@ -159,9 +163,8 @@ function WeatherApp() {
                       <br />
                       Wind Speed:{" "}
                       {forecast.wind
-                        ? Math.round(forecast.wind.speed)
-                        : "N/A"}{" "}
-                      m/s
+                        ? `${(forecast.wind.speed * 3.6).toFixed(1)} km/h`
+                        : "N/A"}
                     </li>
                   ))}
                 </ul>
@@ -213,9 +216,8 @@ function WeatherApp() {
                       <br />
                       Wind Speed:{" "}
                       {forecast.wind
-                        ? Math.round(forecast.wind.speed)
-                        : "N/A"}{" "}
-                      m/s
+                        ? `${(forecast.wind.speed * 3.6).toFixed(1)} km/h`
+                        : "N/A"}
                     </li>
                   ))}
                 </ul>
