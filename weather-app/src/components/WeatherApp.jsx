@@ -19,10 +19,11 @@ function WeatherApp() {
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
+  const [test, setTest] = useState("heavyrain and storm");
 
   return (
     <Box className="weather-app">
-      <Icon name="cloudy" size={40} fill="blue" />
+      <Icon iconName={weather ? test : "N/A"}></Icon>
       <Paper
         elevation={3}
         style={{
