@@ -74,7 +74,7 @@ const Icon = ({ weather }) => {
       setSunriseTime(sunriseTime);
 
       const calculateIsDay = () => {
-        setIsDay(currentTime >= sunsetTime && currentTime < sunriseTime);
+        setIsDay(currentDate <= sunsetDate && currentDate > sunriseDate);
       };
 
       calculateIsDay();
