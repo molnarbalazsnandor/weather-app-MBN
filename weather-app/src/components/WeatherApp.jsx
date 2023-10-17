@@ -19,7 +19,6 @@ function WeatherApp() {
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
-  const [test, setTest] = useState("cloudy");
 
   return (
     <Box className="weather-app">
@@ -51,10 +50,7 @@ function WeatherApp() {
             {error}
           </Typography>
         )}
-        <Icon
-          iconName={weather ? weather.weather[0].main.toLowerCase() : "N/A"}
-          style={{ width: "40vw", height: "40vh" }}
-        ></Icon>
+        <Icon weather={weather}></Icon>
         {weather && (
           <Accordion className="today-weather">
             <AccordionSummary
