@@ -19,11 +19,10 @@ function WeatherApp() {
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
-  const [test, setTest] = useState("heavyrain and storm");
+  const [test, setTest] = useState("cloudy");
 
   return (
     <Box className="weather-app">
-      <Icon iconName={weather ? test : "N/A"}></Icon>
       <Paper
         elevation={3}
         style={{
@@ -37,7 +36,7 @@ function WeatherApp() {
         </Typography>
         <GeoDbAutocomplete
           onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
-        />
+        />{" "}
         {selectedCity && (
           <OpenWeather
             selectedCity={selectedCity}
@@ -52,6 +51,10 @@ function WeatherApp() {
             {error}
           </Typography>
         )}
+        <Icon
+          iconName={weather ? weather.weather[0].main.toLowerCase() : "N/A"}
+          style={{ width: "40vw", height: "40vh" }}
+        ></Icon>
         {weather && (
           <Accordion className="today-weather">
             <AccordionSummary
@@ -132,7 +135,6 @@ function WeatherApp() {
             </AccordionDetails>
           </Accordion>
         )}
-
         {hourlyForecast.length > 0 && (
           <Accordion>
             <AccordionSummary
@@ -173,7 +175,6 @@ function WeatherApp() {
             </AccordionDetails>
           </Accordion>
         )}
-
         {weeklyForecast.length > 0 && (
           <Accordion>
             <AccordionSummary
