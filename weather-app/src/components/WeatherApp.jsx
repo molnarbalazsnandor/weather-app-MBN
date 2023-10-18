@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import "./WeatherApp.css";
-import {
-  Box,
-  Typography,
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Typography } from "@mui/material";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
+import Geolocation from "./Geolocation";
 import OpenWeather from "./OpenWeather";
 import ForecastToday from "./ForecastToday";
 import ForecastTwoHourly from "./ForecastTwoHourly";
@@ -27,6 +20,7 @@ function WeatherApp() {
       <GeoDbAutocomplete
         onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
       />{" "}
+      <Geolocation setSelectedCity={setSelectedCity} setError={setError} />
       {selectedCity && (
         <OpenWeather
           selectedCity={selectedCity}
@@ -35,11 +29,6 @@ function WeatherApp() {
           setHourlyForecast={setHourlyForecast}
           setWeeklyForecast={setWeeklyForecast}
         />
-      )}
-      {error && (
-        <Typography variant="body1" color="error">
-          {error}
-        </Typography>
       )}
       {weather && (
         <ForecastToday className="forecast-today" weather={weather} />

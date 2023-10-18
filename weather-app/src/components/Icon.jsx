@@ -14,7 +14,11 @@ const weatherIconsDay = {
   fog: require("./../pictures/icons/day/mist.svg").ReactComponent,
   "light rain": require("./../pictures/icons/day/cloudy and rainy.svg")
     .ReactComponent,
+  "light intensity drizzle rain":
+    require("./../pictures/icons/day/cloudy and rainy.svg").ReactComponent,
   "moderate rain": require("./../pictures/icons/day/cloudy and rainy.svg")
+    .ReactComponent,
+  showers: require("./../pictures/icons/day/cloudy and rainy.svg")
     .ReactComponent,
   "heavy rain": require("./../pictures/icons/day/rain.svg").ReactComponent,
   "light snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
@@ -41,7 +45,11 @@ const weatherIconsNight = {
   fog: require("./../pictures/icons/night/mist.svg").ReactComponent,
   "light rain": require("./../pictures/icons/night/cloudy and rainy.svg")
     .ReactComponent,
+  "light intensity drizzle rain":
+    require("./../pictures/icons/night/cloudy and rainy.svg").ReactComponent,
   "moderate rain": require("./../pictures/icons/night/cloudy and rainy.svg")
+    .ReactComponent,
+  showers: require("./../pictures/icons/night/cloudy and rainy.svg")
     .ReactComponent,
   "heavy rain": require("./../pictures/icons/night/rain.svg").ReactComponent,
   "light snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
