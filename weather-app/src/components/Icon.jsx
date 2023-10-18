@@ -2,32 +2,55 @@ import React, { useState, useEffect } from "react";
 
 const weatherIconsDay = {
   "clear sky": require("./../pictures/icons/day/clear sky.svg").ReactComponent,
-  "cloudy and rainy": require("./../pictures/icons/day/cloudy and rainy.svg")
+  "few clouds": require("./../pictures/icons/day/few clouds.svg")
     .ReactComponent,
-  cloudy: require("./../pictures/icons/day/cloudy.svg").ReactComponent,
-  "heavyrain and storm":
-    require("./../pictures/icons/day/heavyrain and storm.svg").ReactComponent,
-  rain: require("./../pictures/icons/day/rain.svg").ReactComponent,
-  snow: require("./../pictures/icons/day/snow.svg").ReactComponent,
-  "sunny-1": require("./../pictures/icons/day/sunny-1.svg").ReactComponent,
-  "sunny-2": require("./../pictures/icons/day/sunny-2.svg").ReactComponent,
-  thunder: require("./../pictures/icons/day/thunder.svg").ReactComponent,
+  "scattered clouds": require("./../pictures/icons/day/scattered clouds.svg")
+    .ReactComponent,
+  "broken clouds": require("./../pictures/icons/day/scattered clouds.svg")
+    .ReactComponent,
+  "overcast clouds": require("./../pictures/icons/day/overcast clouds.svg")
+    .ReactComponent,
+  mist: require("./../pictures/icons/day/mist.svg").ReactComponent,
+  fog: require("./../pictures/icons/day/mist.svg").ReactComponent,
+  "light rain": require("./../pictures/icons/day/cloudy and rainy.svg")
+    .ReactComponent,
+  "moderate rain": require("./../pictures/icons/day/cloudy and rainy.svg")
+    .ReactComponent,
+  "heavy rain": require("./../pictures/icons/day/rain.svg").ReactComponent,
+  "light snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
+  "moderate snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
+  "heavy snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
+  thunderstorm: require("./../pictures/icons/day/thunder.svg").ReactComponent,
+  "thunderstorm with rain":
+    require("./../pictures/icons/day/thunderstorm with rain.svg")
+      .ReactComponent,
 };
 
 const weatherIconsNight = {
   "clear sky": require("./../pictures/icons/night/clear sky.svg")
     .ReactComponent,
-  cloudy: require("./../pictures/icons/night/cloudy.svg").ReactComponent,
-  "full moon": require("./../pictures/icons/night/full moon.svg")
+  "few clouds": require("./../pictures/icons/night/few clouds.svg")
     .ReactComponent,
-  "heavyrain and storm":
-    require("./../pictures/icons/night/heavyrain and storm.svg").ReactComponent,
-  "night rain": require("./../pictures/icons/night/night rain.svg")
+  "scattered clouds": require("./../pictures/icons/night/scattered clouds.svg")
     .ReactComponent,
-  night: require("./../pictures/icons/night/night.svg").ReactComponent,
-  rain: require("./../pictures/icons/night/rain.svg").ReactComponent,
-  snow: require("./../pictures/icons/night/snow.svg").ReactComponent,
-  thunder: require("./../pictures/icons/night/thunder.svg").ReactComponent,
+  "broken clouds": require("./../pictures/icons/night/scattered clouds.svg")
+    .ReactComponent,
+  "overcast clouds": require("./../pictures/icons/night/overcast clouds.svg")
+    .ReactComponent,
+  mist: require("./../pictures/icons/night/mist.svg").ReactComponent,
+  fog: require("./../pictures/icons/night/mist.svg").ReactComponent,
+  "light rain": require("./../pictures/icons/night/cloudy and rainy.svg")
+    .ReactComponent,
+  "moderate rain": require("./../pictures/icons/night/cloudy and rainy.svg")
+    .ReactComponent,
+  "heavy rain": require("./../pictures/icons/night/rain.svg").ReactComponent,
+  "light snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
+  "moderate snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
+  "heavy snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
+  thunderstorm: require("./../pictures/icons/night/thunder.svg").ReactComponent,
+  "thunderstorm with rain":
+    require("./../pictures/icons/night/thunderstorm with rain.svg")
+      .ReactComponent,
 };
 
 const Icon = ({ weather }) => {
@@ -36,11 +59,12 @@ const Icon = ({ weather }) => {
   const [sunsetTime, setSunsetTime] = useState("");
   const [sunriseTime, setSunriseTime] = useState("");
 
+  // Unix timestamp
   useEffect(() => {
     if (weather) {
       const currentTimestamp = Math.floor(
         (Date.now() + weather.timezone * 1000) / 1000
-      ); // Current time in Unix timestamp
+      );
       const sunriseTimestamp = weather.sys.sunrise + weather.timezone;
       const sunsetTimestamp = weather.sys.sunset + weather.timezone;
 
@@ -82,7 +106,7 @@ const Icon = ({ weather }) => {
   }, [weather]);
 
   if (!weather) {
-    return null; // Handle the case when weather is null
+    return null;
   }
 
   console.log(
