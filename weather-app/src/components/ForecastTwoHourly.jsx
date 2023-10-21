@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ForecastToday.css";
+import "./ForecastTwoHourly.css";
 import {
   Box,
   Typography,
@@ -13,7 +13,7 @@ import Icon from "./Icon";
 
 function ForecastTwoHourly({ hourlyForecast }) {
   return (
-    <>
+    <Paper className="forecast-two-hourly">
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -52,7 +52,7 @@ function ForecastTwoHourly({ hourlyForecast }) {
           </div>
         </AccordionDetails>
       </Accordion>
-    </>
+    </Paper>
   );
 }
 

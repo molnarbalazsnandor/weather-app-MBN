@@ -4,6 +4,28 @@
   align-items: start;
   justify-content: flex-start;
   height: 100vh;
+  max-height: 90%;
   width: 100vw;
-  padding: 20px;
+  max-width: 90%;
+  padding: 2%;
 }
+.weather-app .forecasts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.weather-app .forecasts .forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+  height: 90vh;
+  width: 60vw;
+  margin: 1%;
+}
+.weather-app .forecasts .forecast-week {
+  height: 90vh;
+  width: 30vw;
+  margin: 1%;
+}/*# sourceMappingURL=WeatherApp.css.map */
