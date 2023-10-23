@@ -1,6 +1,7 @@
-.forecast-today{
+.forecast-details{
   width: 100%;
-  height: 40vh;
+  height: auto;
+  flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

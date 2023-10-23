@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ForecastToday.css";
+import "./ForecastDetails.css";
 import {
   Box,
   Typography,
@@ -11,40 +11,9 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "./Icon";
 
-function ForecastToday({ weather }) {
+function ForecastDetails({ weather }) {
   return (
-    <Box className="forecast-today">
-      <div
-        className="today-weather-basic"
-        style={{
-          width: "auto",
-          height: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <Typography variant="h5">
-            {weather.name}, {weather.sys && weather.sys.country}
-          </Typography>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h7">
-            Temperature:{" "}
-            {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}
-            °C
-          </Typography>
-          <Typography variant="h7">
-            Weather: {weather.weather[0] ? weather.weather[0].main : "N/A"}
-          </Typography>
-        </div>
-      </div>
+    <Paper className="forecast-details">
       <Accordion className="today-weather">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -93,8 +62,8 @@ function ForecastToday({ weather }) {
         </AccordionDetails>
       </Accordion>
       <Icon weather={weather}></Icon>
-    </Box>
+    </Paper>
   );
 }
 
-export default ForecastToday;
+export default ForecastDetails;

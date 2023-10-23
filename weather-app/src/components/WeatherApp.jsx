@@ -4,9 +4,10 @@ import { Box, Typography } from "@mui/material";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
 import Geolocation from "./Geolocation";
 import OpenWeather from "./OpenWeather";
-import ForecastToday from "./ForecastToday";
+import ForecastBasic from "./ForecastBasic";
 import ForecastTwoHourly from "./ForecastTwoHourly";
 import ForecastWeekly from "./ForecastWeekly";
+import ForecastDetails from "./ForecastDetails";
 
 function WeatherApp() {
   const [selectedCity, setSelectedCity] = useState({
@@ -35,10 +36,11 @@ function WeatherApp() {
               setWeeklyForecast={setWeeklyForecast}
             />
           )}
-          {weather && <ForecastToday weather={weather} />}
+          {weather && <ForecastBasic weather={weather} />}
           {hourlyForecast.length > 0 && (
             <ForecastTwoHourly hourlyForecast={hourlyForecast} />
           )}
+          {weather && <ForecastDetails weather={weather} />}
         </div>
         <div className="forecast-week">
           {weeklyForecast.length > 0 && (
