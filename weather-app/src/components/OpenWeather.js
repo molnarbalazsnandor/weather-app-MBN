@@ -16,11 +16,8 @@ const fetchWeather = async (
   try {
     setError(null);
 
-    // Calculate the next full hour
-    const currentDate = new Date();
-    currentDate.setMinutes(0);
-    currentDate.setSeconds(0);
-    const nextFullHour = currentDate.getHours();
+    // Get the current time
+    const currentTime = new Date();
 
     // Fetch current weather data based on the selected city
     const currentWeatherResponse = await fetch(
@@ -38,12 +35,11 @@ const fetchWeather = async (
       const hourlyForecastData = await hourlyForecastResponse.json();
 
       if (hourlyForecastData.list) {
-        // Filter hourly data starting from the next full hour
+        // Filter hourly data for the next hours
         const filteredHourlyForecast = hourlyForecastData.list.filter(
           (forecast) => {
-            const forecastDate = new Date(forecast.dt * 1000);
-            const forecastHour = forecastDate.getHours();
-            return forecastHour >= nextFullHour;
+            const forecastTime = new Date(forecast.dt * 1000);
+            return forecastTime > currentTime;
           }
         );
 
