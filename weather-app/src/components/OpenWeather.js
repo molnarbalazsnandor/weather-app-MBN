@@ -16,9 +16,15 @@ const fetchWeather = async (
   try {
     setError(null);
 
+    // Calculate the next full hour
+    const currentDate = new Date();
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0);
+    const nextFullHour = currentDate.getHours();
+
     // Fetch current weather data based on the selected city
     const currentWeatherResponse = await fetch(
-      `${CURRENT_WEATHER_URL}?q=${selectedCity.label}&appid=${WEATHER_API_KEY}&units=metric` // Use metric units for Celsius
+      `${CURRENT_WEATHER_URL}?q=${selectedCity.label}&appid=${WEATHER_API_KEY}&units=metric`
     );
     const currentWeatherData = await currentWeatherResponse.json();
 
@@ -27,27 +33,21 @@ const fetchWeather = async (
 
       // Fetch hourly weather forecast data based on the selected city
       const hourlyForecastResponse = await fetch(
-        `${HOURLY_WEATHER_URL}?q=${selectedCity.label}&appid=${WEATHER_API_KEY}&units=metric` // Use metric units for Celsius
+        `${HOURLY_WEATHER_URL}?q=${selectedCity.label}&appid=${WEATHER_API_KEY}&units=metric`
       );
       const hourlyForecastData = await hourlyForecastResponse.json();
 
       if (hourlyForecastData.list) {
-        // Filter hourly data for the current day
-        const currentDate = new Date();
-        const currentDay = currentDate.getDate();
+        // Filter hourly data starting from the next full hour
         const filteredHourlyForecast = hourlyForecastData.list.filter(
           (forecast) => {
             const forecastDate = new Date(forecast.dt * 1000);
-            return forecastDate.getDate() === currentDay;
+            const forecastHour = forecastDate.getHours();
+            return forecastHour >= nextFullHour;
           }
         );
 
-        // Extract 2-hourly data from the filtered list
-        const twoHourlyForecast = filteredHourlyForecast.filter(
-          (forecast, index) => index % 2 === 0
-        );
-
-        setHourlyForecast(twoHourlyForecast);
+        setHourlyForecast(filteredHourlyForecast);
 
         // Fetch weekly weather forecast data based on the selected city
         const weeklyForecast = hourlyForecastData.list.filter((forecast) =>
@@ -58,7 +58,7 @@ const fetchWeather = async (
         // Log the data after successful fetch
         console.log(selectedCity.label);
         console.log("Weather Data:", currentWeatherData);
-        console.log("Hourly Forecast Data:", twoHourlyForecast);
+        console.log("Hourly Forecast Data:", filteredHourlyForecast);
         console.log("Weekly Forecast Data:", weeklyForecast);
       } else {
         setError("Hourly forecast data not found");

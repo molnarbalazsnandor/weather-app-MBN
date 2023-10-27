@@ -61,7 +61,6 @@ function ForecastDetails({ weather }) {
           </div>
         </AccordionDetails>
       </Accordion>
-      <Icon weather={weather}></Icon>
     </Paper>
   );
 }

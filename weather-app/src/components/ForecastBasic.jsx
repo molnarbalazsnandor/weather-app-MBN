@@ -11,88 +11,74 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "./Icon";
 
-function ForecastBasic({ weather }) {
+function ForecastBasic({
+  weather,
+  sunsetTime,
+  setSunsetTime,
+  sunriseTime,
+  setSunriseTime,
+}) {
   return (
     <Box className="forecast-basic">
-      <div
-        className="today-weather-basic"
-        style={{
-          width: "auto",
-          height: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <Typography variant="h5">
-            {weather.name}, {weather.sys && weather.sys.country}
-          </Typography>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h7">
-            Temperature:{" "}
-            {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}
-            °C
-          </Typography>
-          <Typography variant="h7">
-            Weather: {weather.weather[0] ? weather.weather[0].main : "N/A"}
-          </Typography>
-        </div>
-      </div>
-      <Accordion className="today-weather">
+      <Accordion className="weather-basic-accordion">
         <AccordionSummary
+          className="weather-basic-accordion-summary"
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="today-weather-content"
-          id="today-weather-header"
+          aria-controls="weather-basic-accordion"
         >
-          <Typography variant="h6">Details</Typography>
+          <div className="left-content">
+            <Typography variant="h5">
+              {weather.name}, {weather.sys && weather.sys.country}
+            </Typography>
+            <Typography variant="h7">
+              Weather: {weather.weather[0] ? weather.weather[0].main : "N/A"}
+            </Typography>
+          </div>
+          <div className="right-content">
+            <Typography variant="h5">
+              {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
+            </Typography>
+          </div>
         </AccordionSummary>
-        <AccordionDetails>
-          <div className="today-weather-details">
-            <Typography variant="body1">
-              Min Temperature:{" "}
-              {weather.main.temp_min
-                ? Math.round(weather.main.temp_min)
-                : "N/A"}
-              °C
-            </Typography>
-            <Typography variant="body1">
-              Max Temperature:{" "}
-              {weather.main.temp_max
-                ? Math.round(weather.main.temp_max)
-                : "N/A"}
-              °C
-            </Typography>
-            <Typography variant="body1">
-              Humidity:{" "}
-              {weather.main.humidity
-                ? Math.round(weather.main.humidity)
-                : "N/A"}
-              %
-            </Typography>
-            <Typography variant="body1">
-              Pressure:{" "}
-              {weather.main.pressure
-                ? Math.round(weather.main.pressure)
-                : "N/A"}{" "}
-              hPa
-            </Typography>
-            <Typography variant="body1">
-              Wind Speed:{" "}
-              {weather.wind
-                ? `${(weather.wind.speed * 3.6).toFixed(1)} km/h`
-                : "N/A"}
-            </Typography>
+        <AccordionDetails className="weather-basic-accordion-details">
+          <div className="details-content">
+            <div className="left-details">
+              <Typography variant="body1">
+                Min Temperature:{" "}
+                {weather.main.temp_min
+                  ? Math.round(weather.main.temp_min)
+                  : "N/A"}
+                °C
+              </Typography>
+              <Typography variant="body1">
+                Max Temperature:{" "}
+                {weather.main.temp_max
+                  ? Math.round(weather.main.temp_max)
+                  : "N/A"}
+                °C
+              </Typography>
+            </div>
+            <div className="right-details">
+              <Typography variant="body1">
+                Sunset time: {sunsetTime ? sunsetTime : "N/A"}
+              </Typography>
+              <Typography variant="body1">
+                Sunrise time: {sunriseTime ? sunriseTime : "N/A"}
+              </Typography>
+            </div>
           </div>
         </AccordionDetails>
       </Accordion>
-      <Icon weather={weather}></Icon>
+
+      <Icon
+        style={{ width: "30vw", height: "auto" }}
+        weather={weather}
+        timezone={weather.timezone}
+        sunsetTime={sunsetTime}
+        setSunsetTime={setSunsetTime}
+        sunriseTime={sunriseTime}
+        setSunriseTime={setSunriseTime}
+      ></Icon>
     </Box>
   );
 }

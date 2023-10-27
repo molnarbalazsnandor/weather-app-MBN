@@ -16,6 +16,8 @@ const weatherIconsDay = {
     .ReactComponent,
   "light intensity drizzle rain":
     require("./../pictures/icons/day/cloudy and rainy.svg").ReactComponent,
+  "shower rain": require("./../pictures/icons/day/cloudy and rainy.svg")
+    .ReactComponent,
   "moderate rain": require("./../pictures/icons/day/cloudy and rainy.svg")
     .ReactComponent,
   showers: require("./../pictures/icons/day/cloudy and rainy.svg")
@@ -47,6 +49,8 @@ const weatherIconsNight = {
     .ReactComponent,
   "light intensity drizzle rain":
     require("./../pictures/icons/night/cloudy and rainy.svg").ReactComponent,
+  "shower rain": require("./../pictures/icons/night/cloudy and rainy.svg")
+    .ReactComponent,
   "moderate rain": require("./../pictures/icons/night/cloudy and rainy.svg")
     .ReactComponent,
   showers: require("./../pictures/icons/night/cloudy and rainy.svg")
@@ -61,20 +65,26 @@ const weatherIconsNight = {
       .ReactComponent,
 };
 
-const Icon = ({ weather }) => {
+const Icon = ({
+  weather,
+  timezone,
+  style,
+  sunsetTime,
+  setSunsetTime,
+  sunriseTime,
+  setSunriseTime,
+}) => {
   const [isDay, setIsDay] = useState(true);
   const [currentTime, setCurrentTime] = useState("");
-  const [sunsetTime, setSunsetTime] = useState("");
-  const [sunriseTime, setSunriseTime] = useState("");
 
   // Unix timestamp
   useEffect(() => {
     if (weather) {
       const currentTimestamp = Math.floor(
-        (Date.now() + weather.timezone * 1000) / 1000
+        (Date.now() + timezone * 1000) / 1000
       );
-      const sunriseTimestamp = weather.sys.sunrise + weather.timezone;
-      const sunsetTimestamp = weather.sys.sunset + weather.timezone;
+      const sunriseTimestamp = weather.sys.sunrise + timezone;
+      const sunsetTimestamp = weather.sys.sunset + timezone;
 
       // Create Date objects from the timestamps
       const currentDate = new Date(currentTimestamp * 1000);
@@ -82,28 +92,28 @@ const Icon = ({ weather }) => {
       const sunsetDate = new Date(sunsetTimestamp * 1000);
 
       // Format the dates as hours and minutes
-      const currentTime = currentDate.toLocaleTimeString([], {
+      const currentTimeIcon = currentDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         timeZone: "UTC",
         hour12: false,
       });
-      const sunriseTime = sunriseDate.toLocaleTimeString([], {
+      const sunriseTimeIcon = sunriseDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         timeZone: "UTC",
         hour12: false,
       });
-      const sunsetTime = sunsetDate.toLocaleTimeString([], {
+      const sunsetTimeIcon = sunsetDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         timeZone: "UTC",
         hour12: false,
       });
 
-      setCurrentTime(currentTime);
-      setSunsetTime(sunsetTime);
-      setSunriseTime(sunriseTime);
+      setCurrentTime(currentTimeIcon);
+      setSunsetTime(sunsetTimeIcon);
+      setSunriseTime(sunriseTimeIcon);
 
       const calculateIsDay = () => {
         setIsDay(currentDate <= sunsetDate && currentDate > sunriseDate);
@@ -128,14 +138,7 @@ const Icon = ({ weather }) => {
     weatherIcons[weather.weather[0].description.toLowerCase()];
 
   if (WeatherIconComponent) {
-    return (
-      <WeatherIconComponent
-        style={{
-          width: "10vw",
-          height: "10vh",
-        }}
-      />
-    );
+    return <WeatherIconComponent style={style} />;
   } else {
     return null;
   }

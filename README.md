@@ -9,4 +9,4 @@ Used packages:
 - sass
 - @mui/material
 - @mui/icons-material
-- react-select; react-select-async-paginate
+- react-select; react-select-async-paginate, react-card-flip

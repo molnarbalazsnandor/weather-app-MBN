@@ -5,7 +5,7 @@ import GeoDbAutocomplete from "./GeoDbAutocomplete";
 import Geolocation from "./Geolocation";
 import OpenWeather from "./OpenWeather";
 import ForecastBasic from "./ForecastBasic";
-import ForecastTwoHourly from "./ForecastTwoHourly";
+import ForecastThreeHourly from "./ForecastThreeHourly";
 import ForecastWeekly from "./ForecastWeekly";
 import ForecastDetails from "./ForecastDetails";
 
@@ -18,6 +18,8 @@ function WeatherApp() {
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
+  const [sunsetTime, setSunsetTime] = useState("");
+  const [sunriseTime, setSunriseTime] = useState("");
 
   return (
     <Box className="weather-app">
@@ -36,9 +38,24 @@ function WeatherApp() {
               setWeeklyForecast={setWeeklyForecast}
             />
           )}
-          {weather && <ForecastBasic weather={weather} />}
+          {weather && (
+            <ForecastBasic
+              weather={weather}
+              sunsetTime={sunsetTime}
+              setSunsetTime={setSunsetTime}
+              sunriseTime={sunriseTime}
+              setSunriseTime={setSunriseTime}
+            />
+          )}
           {hourlyForecast.length > 0 && (
-            <ForecastTwoHourly hourlyForecast={hourlyForecast} />
+            <ForecastThreeHourly
+              weather={weather}
+              hourlyForecast={hourlyForecast}
+              sunsetTime={sunsetTime}
+              setSunsetTime={setSunsetTime}
+              sunriseTime={sunriseTime}
+              setSunriseTime={setSunriseTime}
+            />
           )}
           {weather && <ForecastDetails weather={weather} />}
         </div>
