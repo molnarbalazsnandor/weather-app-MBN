@@ -19,7 +19,8 @@ function ForecastThreeHourly({
   sunriseTime,
   setSunriseTime,
 }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const initialFlipState = new Array(hourlyForecast.length).fill(false);
+  const [isFlipped, setIsFlipped] = useState(initialFlipState);
 
   const formatTimeWithTimeZone = (timestamp, timezone) => {
     const localTime = new Date(timestamp * 1000);
@@ -35,15 +36,21 @@ function ForecastThreeHourly({
     });
   };
 
+  const handleCardClick = (index) => {
+    const updatedFlipState = [...isFlipped];
+    updatedFlipState[index] = !updatedFlipState[index];
+    setIsFlipped(updatedFlipState);
+  };
+
   return (
-    <Box className="forecast-three-hourly">
+    <Paper className="forecast-three-hourly">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
         slidesPerView={5}
         navigation
         initialSlide={0}
-        style={{ width: "auto", height: "auto" }}
+        style={{ width: "90%", height: "auto" }}
       >
         {hourlyForecast.map((forecast, index) => (
           <SwiperSlide
@@ -52,16 +59,19 @@ function ForecastThreeHourly({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              width: "20%",
+              height: "100%",
             }}
           >
             <ReactCardFlip
+              className="flip-card"
               key={forecast.dt}
-              isFlipped={isFlipped}
+              isFlipped={isFlipped[index]}
               flipDirection="horizontal"
             >
               <Paper
                 className="flip-card front"
-                onClick={() => setIsFlipped(!isFlipped)}
+                onClick={() => handleCardClick(index)}
               >
                 <Icon
                   style={{ width: "5vw", height: "auto" }}
@@ -82,10 +92,9 @@ function ForecastThreeHourly({
                   style={{ position: "absolute", top: 10, right: 10 }}
                 />
               </Paper>
-
               <Paper
                 className="flip-card back"
-                onClick={() => setIsFlipped(!isFlipped)}
+                onClick={() => handleCardClick(index)}
               >
                 <Typography variant="body1">
                   Humidity:{" "}
@@ -115,7 +124,7 @@ function ForecastThreeHourly({
           </SwiperSlide>
         ))}
       </Swiper>
-    </Box>
+    </Paper>
   );
 }
 

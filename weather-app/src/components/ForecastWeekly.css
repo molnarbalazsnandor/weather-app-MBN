@@ -4,4 +4,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #202B3B !important;
+  color: #e6e6ed;
+}
+
+.weekly-accordion{
+  background-color: #202B3B !important;
+  color: #e6e6ed !important;
 }

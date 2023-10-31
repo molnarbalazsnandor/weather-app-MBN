@@ -4,6 +4,7 @@ import {
   CURRENT_WEATHER_URL,
   HOURLY_WEATHER_URL,
 } from "../api";
+import { useWeatherContext } from "./../WeatherContext";
 
 const fetchWeather = async (
   selectedCity,
@@ -68,7 +69,7 @@ const fetchWeather = async (
   }
 };
 
-const OpenWeather = ({
+const FetchWeather = ({
   selectedCity,
   setError,
   setWeather,
@@ -90,4 +91,4 @@ const OpenWeather = ({
   return null;
 };
 
-export default OpenWeather;
+export default FetchWeather;

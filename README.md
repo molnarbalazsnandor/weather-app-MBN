@@ -10,3 +10,5 @@ Used packages:
 - @mui/material
 - @mui/icons-material
 - react-select; react-select-async-paginate, react-card-flip
+
+SunsetTime, sunriseTime and timezone were managed by a Reducer in a Context, for these would have require prop drilling otherwise, and were not part of any conditional rendering.

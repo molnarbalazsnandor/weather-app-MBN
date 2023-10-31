@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
+import "./GeoDbAutocomplete.css";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiOptions, GEO_API_URL } from "./../api";
 
@@ -34,12 +35,16 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
       ...provided,
       borderRadius: "5px",
       width: "60vw",
-      border: "2px solid #ccc",
+      border: "2px solid #676984",
+      backgroundColor: "#202B3B",
       boxShadow: state.isFocused ? "0 0 0 2px #3699FF" : null,
+      "& div": {
+        color: "white ",
+      },
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? "#3699FF" : null,
+      backgroundColor: state.isFocused ? "#3699FF" : "#676984",
       color: state.isFocused ? "white" : null,
     }),
   };
@@ -47,6 +52,7 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
   return (
     <Box className="autocomplete">
       <AsyncPaginate
+        className="async-paginate"
         placeholder="Search for a city"
         debounceTimeout={600}
         value={search}

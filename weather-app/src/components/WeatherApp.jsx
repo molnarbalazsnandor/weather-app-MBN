@@ -3,7 +3,7 @@ import "./WeatherApp.css";
 import { Box, Typography } from "@mui/material";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
 import Geolocation from "./Geolocation";
-import OpenWeather from "./OpenWeather";
+import FetchWeather from "./FetchWeather";
 import ForecastBasic from "./ForecastBasic";
 import ForecastThreeHourly from "./ForecastThreeHourly";
 import ForecastWeekly from "./ForecastWeekly";
@@ -23,16 +23,17 @@ function WeatherApp() {
 
   return (
     <Box className="weather-app">
-      <Geolocation setSelectedCity={setSelectedCity} setError={setError} />
+      <Geolocation setSelectedCity={setSelectedCity} />
       <GeoDbAutocomplete
         onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
       />
       <div className="forecasts">
         <div className="forecast-day">
           {selectedCity && (
-            <OpenWeather
+            <FetchWeather
               selectedCity={selectedCity}
               setError={setError}
+              weather={weather}
               setWeather={setWeather}
               setHourlyForecast={setHourlyForecast}
               setWeeklyForecast={setWeeklyForecast}

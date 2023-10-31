@@ -14,7 +14,7 @@ import Icon from "./Icon";
 function ForecastWeekly({ weeklyForecast }) {
   return (
     <Paper className="forecast-weekly">
-      <Accordion>
+      <Accordion className="weekly-accordion">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="weekly-forecast-content"

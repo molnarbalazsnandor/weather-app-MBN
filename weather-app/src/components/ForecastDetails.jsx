@@ -14,7 +14,7 @@ import Icon from "./Icon";
 function ForecastDetails({ weather }) {
   return (
     <Paper className="forecast-details">
-      <Accordion className="today-weather">
+      <Accordion className="details-accordion">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="today-weather-content"
