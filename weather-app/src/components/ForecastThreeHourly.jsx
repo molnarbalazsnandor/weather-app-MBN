@@ -10,31 +10,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useWeatherContext } from "./../WeatherContext";
+import { formatTimeWithTimeZone } from "./FetchWeather";
 
-function ForecastThreeHourly({
-  weather,
-  hourlyForecast,
-  sunsetTime,
-  setSunsetTime,
-  sunriseTime,
-  setSunriseTime,
-}) {
+function ForecastThreeHourly({ hourlyForecast }) {
+  const { state } = useWeatherContext();
+
   const initialFlipState = new Array(hourlyForecast.length).fill(false);
   const [isFlipped, setIsFlipped] = useState(initialFlipState);
-
-  const formatTimeWithTimeZone = (timestamp, timezone) => {
-    const localTime = new Date(timestamp * 1000);
-    const offset = localTime.getTimezoneOffset();
-    const adjustedTime = new Date(
-      localTime.getTime() + offset * 60 * 1000 + timezone * 1000
-    );
-
-    return adjustedTime.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-  };
 
   const handleCardClick = (index) => {
     const updatedFlipState = [...isFlipped];
@@ -76,14 +59,10 @@ function ForecastThreeHourly({
                 <Icon
                   style={{ width: "5vw", height: "auto" }}
                   weather={forecast}
-                  timezone={weather.timezone}
-                  sunsetTime={sunsetTime}
-                  setSunsetTime={setSunsetTime}
-                  sunriseTime={sunriseTime}
-                  setSunriseTime={setSunriseTime}
+                  timezone={state.timezone}
                 />
                 <Typography variant="h6">
-                  Time: {formatTimeWithTimeZone(forecast.dt, weather.timezone)}
+                  Time: {formatTimeWithTimeZone(forecast.dt, state.timezone)}
                 </Typography>
                 <Typography variant="h6">
                   Temperature: {Math.round(forecast.main.temp)}°C

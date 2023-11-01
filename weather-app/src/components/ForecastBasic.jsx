@@ -10,14 +10,12 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "./Icon";
+import { useWeatherContext } from "./../WeatherContext";
+import { formatTime } from "./FetchWeather";
 
-function ForecastBasic({
-  weather,
-  sunsetTime,
-  setSunsetTime,
-  sunriseTime,
-  setSunriseTime,
-}) {
+function ForecastBasic({ weather }) {
+  const { state } = useWeatherContext();
+
   return (
     <Box className="forecast-basic">
       <Accordion className="weather-basic-accordion">
@@ -37,6 +35,9 @@ function ForecastBasic({
           <div className="right-content">
             <Typography variant="h5">
               {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
+            </Typography>
+            <Typography variant="h7">
+              {state.currentTime ? formatTime(state.currentTime) : "N/A"}
             </Typography>
           </div>
         </AccordionSummary>
@@ -60,25 +61,19 @@ function ForecastBasic({
             </div>
             <div className="right-details">
               <Typography variant="body1">
-                Sunset time: {sunsetTime ? sunsetTime : "N/A"}
+                Sunset time:{" "}
+                {state.sunsetTime ? formatTime(state.sunsetTime) : "N/A"}
               </Typography>
               <Typography variant="body1">
-                Sunrise time: {sunriseTime ? sunriseTime : "N/A"}
+                Sunrise time:{" "}
+                {state.sunriseTime ? formatTime(state.sunriseTime) : "N/A"}
               </Typography>
             </div>
           </div>
         </AccordionDetails>
       </Accordion>
 
-      <Icon
-        style={{ width: "30vw", height: "auto" }}
-        weather={weather}
-        timezone={weather.timezone}
-        sunsetTime={sunsetTime}
-        setSunsetTime={setSunsetTime}
-        sunriseTime={sunriseTime}
-        setSunriseTime={setSunriseTime}
-      ></Icon>
+      <Icon style={{ width: "30vw", height: "auto" }} weather={weather}></Icon>
     </Box>
   );
 }

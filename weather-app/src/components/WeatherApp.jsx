@@ -18,8 +18,6 @@ function WeatherApp() {
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState(null);
-  const [sunsetTime, setSunsetTime] = useState("");
-  const [sunriseTime, setSunriseTime] = useState("");
 
   return (
     <Box className="weather-app">
@@ -39,23 +37,11 @@ function WeatherApp() {
               setWeeklyForecast={setWeeklyForecast}
             />
           )}
-          {weather && (
-            <ForecastBasic
-              weather={weather}
-              sunsetTime={sunsetTime}
-              setSunsetTime={setSunsetTime}
-              sunriseTime={sunriseTime}
-              setSunriseTime={setSunriseTime}
-            />
-          )}
+          {weather && <ForecastBasic weather={weather} />}
           {hourlyForecast.length > 0 && (
             <ForecastThreeHourly
               weather={weather}
               hourlyForecast={hourlyForecast}
-              sunsetTime={sunsetTime}
-              setSunsetTime={setSunsetTime}
-              sunriseTime={sunriseTime}
-              setSunriseTime={setSunriseTime}
             />
           )}
           {weather && <ForecastDetails weather={weather} />}

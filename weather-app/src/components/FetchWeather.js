@@ -6,19 +6,17 @@ import {
 } from "../api";
 import { useWeatherContext } from "./../WeatherContext";
 
-const fetchWeather = async (
+const fetchWeatherData = async (
   selectedCity,
   setError,
   setWeather,
   setHourlyForecast,
-  setWeeklyForecast
+  setWeeklyForecast,
+  dispatch
 ) => {
   if (!selectedCity) return;
   try {
     setError(null);
-
-    // Get the current time
-    const currentTime = new Date();
 
     // Fetch current weather data based on the selected city
     const currentWeatherResponse = await fetch(
@@ -26,8 +24,37 @@ const fetchWeather = async (
     );
     const currentWeatherData = await currentWeatherResponse.json();
 
-    if (currentWeatherData.main) {
+    if (currentWeatherData) {
       setWeather(currentWeatherData);
+
+      //Calculate current, sunset and sunrise times and set Context
+      const currentTimestamp = Math.floor(
+        (Date.now() + currentWeatherData.timezone * 1000) / 1000
+      );
+      const sunsetTimestamp =
+        currentWeatherData.sys.sunset + currentWeatherData.timezone;
+      const sunriseTimestamp =
+        currentWeatherData.sys.sunrise + currentWeatherData.timezone;
+
+      dispatch({
+        type: "SET_CURRENT_TIME",
+        payload: currentTimestamp,
+      });
+
+      dispatch({
+        type: "SET_SUNSET_TIME",
+        payload: sunsetTimestamp,
+      });
+
+      dispatch({
+        type: "SET_SUNRISE_TIME",
+        payload: sunriseTimestamp,
+      });
+
+      dispatch({
+        type: "SET_TIMEZONE",
+        payload: currentWeatherData.timezone,
+      });
 
       // Fetch hourly weather forecast data based on the selected city
       const hourlyForecastResponse = await fetch(
@@ -36,15 +63,7 @@ const fetchWeather = async (
       const hourlyForecastData = await hourlyForecastResponse.json();
 
       if (hourlyForecastData.list) {
-        // Filter hourly data for the next hours
-        const filteredHourlyForecast = hourlyForecastData.list.filter(
-          (forecast) => {
-            const forecastTime = new Date(forecast.dt * 1000);
-            return forecastTime > currentTime;
-          }
-        );
-
-        setHourlyForecast(filteredHourlyForecast);
+        setHourlyForecast(hourlyForecastData.list);
 
         // Fetch weekly weather forecast data based on the selected city
         const weeklyForecast = hourlyForecastData.list.filter((forecast) =>
@@ -55,7 +74,7 @@ const fetchWeather = async (
         // Log the data after successful fetch
         console.log(selectedCity.label);
         console.log("Weather Data:", currentWeatherData);
-        console.log("Hourly Forecast Data:", filteredHourlyForecast);
+        console.log("Hourly Forecast Data:", hourlyForecastData.list);
         console.log("Weekly Forecast Data:", weeklyForecast);
       } else {
         setError("Hourly forecast data not found");
@@ -69,6 +88,32 @@ const fetchWeather = async (
   }
 };
 
+export const formatTime = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+
+  // Format the dates as hours and minutes
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+    hour12: false,
+  });
+};
+
+export const formatTimeWithTimeZone = (timestamp, timezone) => {
+  const localTime = new Date(timestamp * 1000);
+  const offset = localTime.getTimezoneOffset();
+  const adjustedTime = new Date(
+    localTime.getTime() + offset * 60 * 1000 + timezone * 1000
+  );
+
+  return adjustedTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+};
+
 const FetchWeather = ({
   selectedCity,
   setError,
@@ -78,15 +123,18 @@ const FetchWeather = ({
   setLoadingSuggestions,
   setSuggestions,
 }) => {
+  const { dispatch } = useWeatherContext();
+
   useEffect(() => {
-    fetchWeather(
+    fetchWeatherData(
       selectedCity,
       setError,
       setWeather,
       setHourlyForecast,
-      setWeeklyForecast
+      setWeeklyForecast,
+      dispatch
     );
-  }, [selectedCity]);
+  }, [selectedCity, dispatch]);
 
   return null;
 };

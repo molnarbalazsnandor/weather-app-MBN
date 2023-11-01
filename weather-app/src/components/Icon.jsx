@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useWeatherContext } from "./../WeatherContext";
+import { formatTimeWithTimeZone } from "./FetchWeather";
 
 const weatherIconsDay = {
   "clear sky": require("./../pictures/icons/day/clear sky.svg").ReactComponent,
@@ -16,6 +18,8 @@ const weatherIconsDay = {
     .ReactComponent,
   "light intensity drizzle rain":
     require("./../pictures/icons/day/cloudy and rainy.svg").ReactComponent,
+  "light intensity shower rain":
+    require("./../pictures/icons/day/cloudy and rainy.svg").ReactComponent,
   "shower rain": require("./../pictures/icons/day/cloudy and rainy.svg")
     .ReactComponent,
   "moderate rain": require("./../pictures/icons/day/cloudy and rainy.svg")
@@ -24,6 +28,8 @@ const weatherIconsDay = {
     .ReactComponent,
   "heavy rain": require("./../pictures/icons/day/rain.svg").ReactComponent,
   "light snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
+  "light shower snow": require("./../pictures/icons/day/snow.svg")
+    .ReactComponent,
   "moderate snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
   "heavy snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
   thunderstorm: require("./../pictures/icons/day/thunder.svg").ReactComponent,
@@ -49,6 +55,8 @@ const weatherIconsNight = {
     .ReactComponent,
   "light intensity drizzle rain":
     require("./../pictures/icons/night/cloudy and rainy.svg").ReactComponent,
+  "light intensity shower rain":
+    require("./../pictures/icons/night/cloudy and rainy.svg").ReactComponent,
   "shower rain": require("./../pictures/icons/night/cloudy and rainy.svg")
     .ReactComponent,
   "moderate rain": require("./../pictures/icons/night/cloudy and rainy.svg")
@@ -57,6 +65,8 @@ const weatherIconsNight = {
     .ReactComponent,
   "heavy rain": require("./../pictures/icons/night/rain.svg").ReactComponent,
   "light snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
+  "light shower snow": require("./../pictures/icons/night/snow.svg")
+    .ReactComponent,
   "moderate snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
   "heavy snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
   thunderstorm: require("./../pictures/icons/night/thunder.svg").ReactComponent,
@@ -65,73 +75,39 @@ const weatherIconsNight = {
       .ReactComponent,
 };
 
-const Icon = ({
-  weather,
-  timezone,
-  style,
-  sunsetTime,
-  setSunsetTime,
-  sunriseTime,
-  setSunriseTime,
-}) => {
+const Icon = ({ weather, timezone, style }) => {
   const [isDay, setIsDay] = useState(true);
   const [currentTime, setCurrentTime] = useState("");
+  const [sunsetTime, setSunsetTime] = useState("");
+  const [sunriseTime, setSunriseTime] = useState("");
 
-  // Unix timestamp
+  const { state } = useWeatherContext();
+
+  //KÖVETKEZŐ FELADAT: ALÁBBI UNIXOS DOLOG KITISZTÍTÁSA, FETCHWEATHER-BEN IDŐ ÁTALAKÍTÓ EXPORT CONST ELHELYEZÉSE, AZTÁN ITT A CONTEXT HASZNÁLATÁRA ÁTÁLLÁS
+
   useEffect(() => {
-    if (weather) {
-      const currentTimestamp = Math.floor(
-        (Date.now() + timezone * 1000) / 1000
-      );
-      const sunriseTimestamp = weather.sys.sunrise + timezone;
-      const sunsetTimestamp = weather.sys.sunset + timezone;
+    const weatherTime = formatTimeWithTimeZone(weather.dt, state.timezone);
+    const sunriseTime = formatTimeWithTimeZone(
+      state.sunriseTime,
+      state.timezone
+    );
+    const sunsetTime = formatTimeWithTimeZone(state.sunsetTime, state.timezone);
 
-      // Create Date objects from the timestamps
-      const currentDate = new Date(currentTimestamp * 1000);
-      const sunriseDate = new Date(sunriseTimestamp * 1000);
-      const sunsetDate = new Date(sunsetTimestamp * 1000);
-
-      // Format the dates as hours and minutes
-      const currentTimeIcon = currentDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "UTC",
-        hour12: false,
-      });
-      const sunriseTimeIcon = sunriseDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "UTC",
-        hour12: false,
-      });
-      const sunsetTimeIcon = sunsetDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "UTC",
-        hour12: false,
-      });
-
-      setCurrentTime(currentTimeIcon);
-      setSunsetTime(sunsetTimeIcon);
-      setSunriseTime(sunriseTimeIcon);
-
-      const calculateIsDay = () => {
-        setIsDay(currentDate <= sunsetDate && currentDate > sunriseDate);
-      };
-
-      calculateIsDay();
+    // Compare the times in HH:mm format
+    if (weatherTime >= sunriseTime && weatherTime <= sunsetTime) {
+      setIsDay(true);
+    } else {
+      setIsDay(false);
     }
-  }, [weather]);
+  }, [weather, state]);
 
   if (!weather) {
     return null;
   }
 
-  console.log(
-    `Current Time: ${currentTime}` +
-      ` Sunset Time: ${sunsetTime}` +
-      ` Sunrise Time: ${sunriseTime}`
-  );
+  if (!weather) {
+    return null;
+  }
 
   const weatherIcons = isDay ? weatherIconsDay : weatherIconsNight;
   const WeatherIconComponent =
