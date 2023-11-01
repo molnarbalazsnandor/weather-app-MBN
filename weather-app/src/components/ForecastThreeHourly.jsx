@@ -59,7 +59,6 @@ function ForecastThreeHourly({ hourlyForecast }) {
                 <Icon
                   style={{ width: "5vw", height: "auto" }}
                   weather={forecast}
-                  timezone={state.timezone}
                 />
                 <Typography variant="h6">
                   Time: {formatTimeWithTimeZone(forecast.dt, state.timezone)}

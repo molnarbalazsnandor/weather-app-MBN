@@ -88,10 +88,10 @@ const fetchWeatherData = async (
   }
 };
 
+// Format the UNIX time data in HH:mm format
 export const formatTime = (timestamp) => {
   const date = new Date(timestamp * 1000);
 
-  // Format the dates as hours and minutes
   return date.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -100,6 +100,7 @@ export const formatTime = (timestamp) => {
   });
 };
 
+// Format the UNIX time data in HH:mm format, when the timezone is not already included
 export const formatTimeWithTimeZone = (timestamp, timezone) => {
   const localTime = new Date(timestamp * 1000);
   const offset = localTime.getTimezoneOffset();

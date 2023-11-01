@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useWeatherContext } from "./../WeatherContext";
-import { formatTimeWithTimeZone } from "./FetchWeather";
+import { formatTime, formatTimeWithTimeZone } from "./FetchWeather";
 
 const weatherIconsDay = {
   "clear sky": require("./../pictures/icons/day/clear sky.svg").ReactComponent,
@@ -75,7 +75,7 @@ const weatherIconsNight = {
       .ReactComponent,
 };
 
-const Icon = ({ weather, timezone, style }) => {
+const Icon = ({ weather, style }) => {
   const [isDay, setIsDay] = useState(true);
   const [currentTime, setCurrentTime] = useState("");
   const [sunsetTime, setSunsetTime] = useState("");
@@ -83,18 +83,13 @@ const Icon = ({ weather, timezone, style }) => {
 
   const { state } = useWeatherContext();
 
-  //KÖVETKEZŐ FELADAT: ALÁBBI UNIXOS DOLOG KITISZTÍTÁSA, FETCHWEATHER-BEN IDŐ ÁTALAKÍTÓ EXPORT CONST ELHELYEZÉSE, AZTÁN ITT A CONTEXT HASZNÁLATÁRA ÁTÁLLÁS
-
   useEffect(() => {
-    const weatherTime = formatTimeWithTimeZone(weather.dt, state.timezone);
-    const sunriseTime = formatTimeWithTimeZone(
-      state.sunriseTime,
-      state.timezone
-    );
-    const sunsetTime = formatTimeWithTimeZone(state.sunsetTime, state.timezone);
+    const currentTime = formatTimeWithTimeZone(weather.dt, state.timezone);
+    const sunriseTime = formatTime(state.sunriseTime);
+    const sunsetTime = formatTime(state.sunsetTime);
 
     // Compare the times in HH:mm format
-    if (weatherTime >= sunriseTime && weatherTime <= sunsetTime) {
+    if (currentTime >= sunriseTime && currentTime <= sunsetTime) {
       setIsDay(true);
     } else {
       setIsDay(false);
