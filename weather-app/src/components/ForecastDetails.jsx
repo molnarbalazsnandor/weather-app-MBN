@@ -1,66 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ForecastDetails.css";
-import {
-  Box,
-  Typography,
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Icon from "./Icon";
+import { Paper, Typography, Box } from "@mui/material";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import AirIcon from "@mui/icons-material/Air";
+import OpacityIcon from "@mui/icons-material/Opacity";
+import SpeedIcon from "@mui/icons-material/Speed";
 
 function ForecastDetails({ weather }) {
+  const renderDetailItem = (title, icon, info) => (
+    <Paper className="detail-item">
+      <Box className="icon-and-caption">
+        <Box className="icon-container">{icon}</Box>
+        <Typography variant="h6" className="title">
+          {title}
+        </Typography>
+      </Box>
+      <Typography variant="h5" className="info">
+        {info}
+      </Typography>
+    </Paper>
+  );
+
   return (
     <Paper className="forecast-details">
-      <Accordion className="details-accordion">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="today-weather-content"
-          id="today-weather-header"
-        >
-          <Typography variant="h6">Details</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className="today-weather-details">
-            <Typography variant="body1">
-              Min Temperature:{" "}
-              {weather.main.temp_min
-                ? Math.round(weather.main.temp_min)
-                : "N/A"}
-              °C
-            </Typography>
-            <Typography variant="body1">
-              Max Temperature:{" "}
-              {weather.main.temp_max
-                ? Math.round(weather.main.temp_max)
-                : "N/A"}
-              °C
-            </Typography>
-            <Typography variant="body1">
-              Humidity:{" "}
-              {weather.main.humidity
-                ? Math.round(weather.main.humidity)
-                : "N/A"}
-              %
-            </Typography>
-            <Typography variant="body1">
-              Pressure:{" "}
-              {weather.main.pressure
-                ? Math.round(weather.main.pressure)
-                : "N/A"}{" "}
-              hPa
-            </Typography>
-            <Typography variant="body1">
-              Wind Speed:{" "}
-              {weather.wind
-                ? `${(weather.wind.speed * 3.6).toFixed(1)} km/h`
-                : "N/A"}
-            </Typography>
-          </div>
-        </AccordionDetails>
-      </Accordion>
+      <Typography variant="h5" className="details-title">
+        Details
+      </Typography>
+      <div className="details-container">
+        {renderDetailItem(
+          "Real Feel",
+          <ThermostatIcon className="icon" />,
+          `${Math.round(weather.main.feels_like)}°C`
+        )}
+        {renderDetailItem(
+          "Wind Speed",
+          <AirIcon className="icon" />,
+          `${(weather.wind.speed * 3.6).toFixed(1)} km/h`
+        )}
+        {renderDetailItem(
+          "Humidity",
+          <OpacityIcon className="icon" />,
+          `${Math.round(weather.main.humidity)}%`
+        )}
+        {renderDetailItem(
+          "Pressure",
+          <SpeedIcon className="icon" />,
+          `${Math.round(weather.main.pressure)} hPa`
+        )}
+      </div>
     </Paper>
   );
 }

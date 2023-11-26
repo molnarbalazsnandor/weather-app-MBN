@@ -4,11 +4,10 @@ import { Paper, Typography, Box } from "@mui/material";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import ReactCardFlip from "react-card-flip";
 import Icon from "./Icon";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useWeatherContext } from "./../WeatherContext";
 import { formatTimeWithTimeZone } from "./FetchWeather";
@@ -28,12 +27,15 @@ function ForecastThreeHourly({ hourlyForecast }) {
   return (
     <Paper className="forecast-three-hourly">
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={50}
+        modules={[Navigation, A11y]}
+        spaceBetween={0}
         slidesPerView={5}
         navigation
         initialSlide={0}
-        style={{ width: "90%", height: "auto" }}
+        style={{
+          width: "90%",
+          height: "auto",
+        }}
       >
         {hourlyForecast.map((forecast, index) => (
           <SwiperSlide
@@ -42,8 +44,8 @@ function ForecastThreeHourly({ hourlyForecast }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "20%",
-              height: "100%",
+              width: "8vw",
+              height: "auto",
             }}
           >
             <ReactCardFlip
@@ -54,6 +56,10 @@ function ForecastThreeHourly({ hourlyForecast }) {
             >
               <Paper
                 className="flip-card front"
+                style={{
+                  width: "8vw",
+                  height: "17vh",
+                }}
                 onClick={() => handleCardClick(index)}
               >
                 <Icon
@@ -72,6 +78,10 @@ function ForecastThreeHourly({ hourlyForecast }) {
               </Paper>
               <Paper
                 className="flip-card back"
+                style={{
+                  width: "8vw",
+                  height: "17vh",
+                }}
                 onClick={() => handleCardClick(index)}
               >
                 <Typography variant="body1">

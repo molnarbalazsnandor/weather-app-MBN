@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "./Icon";
+import ActualTime from "./ActualTime";
 import { useWeatherContext } from "./../WeatherContext";
 import { formatTime } from "./FetchWeather";
 
@@ -36,9 +37,7 @@ function ForecastBasic({ weather }) {
             <Typography variant="h5">
               {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
             </Typography>
-            <Typography variant="h7">
-              {state.currentTime ? formatTime(state.currentTime) : "N/A"}
-            </Typography>
+            <ActualTime />
           </div>
         </AccordionSummary>
         <AccordionDetails className="weather-basic-accordion-details">
