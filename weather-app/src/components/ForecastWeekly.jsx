@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ForecastWeekly.css";
 import {
   Box,
@@ -9,7 +9,6 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Icon from "./Icon";
 
 function ForecastWeekly({ weeklyForecast }) {
   return (

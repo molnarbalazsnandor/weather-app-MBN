@@ -65,17 +65,116 @@ const fetchWeatherData = async (
       if (hourlyForecastData.list) {
         setHourlyForecast(hourlyForecastData.list);
 
-        // Fetch weekly weather forecast data based on the selected city
-        const weeklyForecast = hourlyForecastData.list.filter((forecast) =>
-          forecast.dt_txt.includes("12:00:00")
-        ); // Assuming 12:00:00 represents the daily forecast
-        setWeeklyForecast(weeklyForecast);
+        // Calculate weekly weather forecast from the hourly datas
+
+        const modifiedHourlyForecast = hourlyForecastData.list.map(
+          (hourlyData) => {
+            const { dt } = hourlyData;
+            const timezone = currentWeatherData.timezone;
+
+            // Convert UNIX timestamp to actual time in the location
+            const date = new Date((dt + timezone) * 1000);
+
+            // Format the date to YYYY-MM-DD HH:mm
+            const formattedTime = date.toLocaleString("en-US", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+              timeZone: "UTC",
+            });
+
+            const dayOfWeek = date.getDay();
+
+            const daysOfWeek = [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ];
+
+            const dayName = daysOfWeek[dayOfWeek];
+
+            // Update the object with the modified dt, dt_txt, and dayOfWeek keys
+            return {
+              ...hourlyData,
+              dt: dt + timezone,
+              dt_txt: formattedTime,
+              dayOfWeek: dayName,
+            };
+          }
+        );
+        const groupedByDay = {};
+
+        modifiedHourlyForecast.forEach((hourlyData) => {
+          const { dayOfWeek } = hourlyData;
+
+          if (!groupedByDay[dayOfWeek]) {
+            groupedByDay[dayOfWeek] = [];
+          }
+
+          groupedByDay[dayOfWeek].push(hourlyData);
+        });
+
+        const dailyForecast = [];
+
+        Object.keys(groupedByDay).forEach((dayOfWeek) => {
+          const dayData = groupedByDay[dayOfWeek];
+
+          const temperatures = dayData.map((data) => data.main.temp);
+          const temp_min = Math.min(...temperatures);
+          const temp_max = Math.max(...temperatures);
+
+          // Calculate the most frequent weather description
+          const weatherDescriptions = dayData.map(
+            (data) => data.weather[0].description
+          );
+          const mostFrequentWeather = mode(weatherDescriptions);
+
+          const averageHumidity =
+            dayData.reduce((sum, data) => sum + data.main.humidity, 0) /
+            dayData.length;
+
+          const averageWindSpeed =
+            dayData.reduce((sum, data) => sum + data.wind.speed, 0) /
+            dayData.length;
+
+          // Create the daily forecast object
+          const dailyForecastItem = {
+            dayOfWeek,
+            temp_min,
+            temp_max,
+            weather: mostFrequentWeather,
+            humidity: averageHumidity,
+            wind_speed: averageWindSpeed,
+          };
+
+          dailyForecast.push(dailyForecastItem);
+        });
+
+        // Function to find the mode (most frequent element) in an array
+        function mode(arr) {
+          return arr.reduce(
+            (acc, val, i, arr) =>
+              arr.filter((v) => v === val).length > acc.max
+                ? { value: val, max: arr.filter((v) => v === val).length }
+                : acc,
+            { value: null, max: 0 }
+          ).value;
+        }
+
+        setWeeklyForecast(modifiedHourlyForecast);
 
         // Log the data after successful fetch
         console.log(selectedCity.label);
         console.log("Weather Data:", currentWeatherData);
         console.log("Hourly Forecast Data:", hourlyForecastData.list);
-        console.log("Weekly Forecast Data:", weeklyForecast);
+        console.log("5-day Forecast Data:", dailyForecast);
       } else {
         setError("Hourly forecast data not found");
       }
