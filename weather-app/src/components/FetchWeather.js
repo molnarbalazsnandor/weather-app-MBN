@@ -109,6 +109,7 @@ const fetchWeatherData = async (
             };
           }
         );
+
         const groupedByDay = {};
 
         modifiedHourlyForecast.forEach((hourlyData) => {
@@ -130,11 +131,25 @@ const fetchWeatherData = async (
           const temp_min = Math.min(...temperatures);
           const temp_max = Math.max(...temperatures);
 
+          // Function to find the mode (most frequent element) in an array
+          function mode(arr) {
+            return arr.reduce(
+              (acc, val, i, arr) =>
+                arr.filter((v) => v === val).length > acc.max
+                  ? { value: val, max: arr.filter((v) => v === val).length }
+                  : acc,
+              { value: null, max: 0 }
+            ).value;
+          }
+
           // Calculate the most frequent weather description
           const weatherDescriptions = dayData.map(
             (data) => data.weather[0].description
           );
-          const mostFrequentWeather = mode(weatherDescriptions);
+          const mostFrequentWeatherDescription = mode(weatherDescriptions);
+
+          const weatherMains = dayData.map((data) => data.weather[0].main);
+          const mostFrequentWeatherMain = mode(weatherMains);
 
           const averageHumidity =
             dayData.reduce((sum, data) => sum + data.main.humidity, 0) /
@@ -144,12 +159,26 @@ const fetchWeatherData = async (
             dayData.reduce((sum, data) => sum + data.wind.speed, 0) /
             dayData.length;
 
+          // Get the date for the given day without the time
+          const formattedDate = dayData[0].dt_txt.split(",")[0];
+
+          // Get the UNIX timestamp for noon on that day
+          const noonTimestamp =
+            new Date(`${formattedDate} 12:00:00`).getTime() / 1000;
+
           // Create the daily forecast object
           const dailyForecastItem = {
             dayOfWeek,
+            dt: noonTimestamp,
+            dt_txt: formattedDate,
             temp_min,
             temp_max,
-            weather: mostFrequentWeather,
+            weather: [
+              {
+                main: mostFrequentWeatherMain,
+                description: mostFrequentWeatherDescription,
+              },
+            ],
             humidity: averageHumidity,
             wind_speed: averageWindSpeed,
           };
@@ -157,18 +186,7 @@ const fetchWeatherData = async (
           dailyForecast.push(dailyForecastItem);
         });
 
-        // Function to find the mode (most frequent element) in an array
-        function mode(arr) {
-          return arr.reduce(
-            (acc, val, i, arr) =>
-              arr.filter((v) => v === val).length > acc.max
-                ? { value: val, max: arr.filter((v) => v === val).length }
-                : acc,
-            { value: null, max: 0 }
-          ).value;
-        }
-
-        setWeeklyForecast(modifiedHourlyForecast);
+        setWeeklyForecast(dailyForecast);
 
         // Log the data after successful fetch
         console.log(selectedCity.label);

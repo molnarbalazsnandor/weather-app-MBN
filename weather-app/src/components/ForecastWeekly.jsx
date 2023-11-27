@@ -1,68 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./ForecastWeekly.css";
-import {
-  Box,
-  Typography,
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Icon from "./Icon";
+import { Box, Typography, Paper } from "@mui/material";
 
 function ForecastWeekly({ weeklyForecast }) {
   return (
     <Paper className="forecast-weekly">
-      <Accordion className="weekly-accordion">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="weekly-forecast-content"
-          id="weekly-forecast-header"
-        >
-          <Typography variant="h5">Weekly Forecast</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className="weekly-forecast">
-            <ul>
-              {weeklyForecast.map((forecast) => (
-                <li key={forecast.dt}>
-                  Date: {new Date(forecast.dt * 1000).toLocaleDateString()},
-                  Temperature: {Math.round(forecast.main.temp)}°C
-                  <br />
-                  Min Temperature:{" "}
-                  {forecast.main.temp_min
-                    ? Math.round(forecast.main.temp_min)
-                    : "N/A"}
-                  °C
-                  <br />
-                  Max Temperature:{" "}
-                  {forecast.main.temp_max
-                    ? Math.round(forecast.main.temp_max)
-                    : "N/A"}
-                  °C
-                  <br />
-                  Humidity:{" "}
-                  {forecast.main.humidity
-                    ? Math.round(forecast.main.humidity)
-                    : "N/A"}
-                  %
-                  <br />
-                  Pressure:{" "}
-                  {forecast.main.pressure
-                    ? Math.round(forecast.main.pressure)
-                    : "N/A"}{" "}
-                  hPa
-                  <br />
-                  Wind Speed:{" "}
-                  {forecast.wind
-                    ? `${(forecast.wind.speed * 3.6).toFixed(1)} km/h`
-                    : "N/A"}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </AccordionDetails>
-      </Accordion>
+      <Box display="flex" flexDirection="column" alignItems="center">
+        {weeklyForecast.map((forecast) => (
+          <Box
+            key={forecast.dt}
+            p={2}
+            m={2}
+            border={1}
+            borderRadius={2}
+            textAlign="center"
+          >
+            <Typography variant="h6">{forecast.dayOfWeek}</Typography>
+            <Icon style={{ width: "5vw", height: "auto" }} weather={forecast} />
+            <Typography>
+              Min Temperature:{" "}
+              {forecast.temp_min ? Math.round(forecast.temp_min) : "N/A"}°C
+            </Typography>
+            <Typography>
+              Max Temperature:{" "}
+              {forecast.temp_max ? Math.round(forecast.temp_max) : "N/A"}°C
+            </Typography>
+            <Typography>
+              Humidity:{" "}
+              {forecast.humidity ? Math.round(forecast.humidity) : "N/A"}%
+            </Typography>
+            <Typography>
+              Wind Speed:{" "}
+              {forecast.wind_speed
+                ? `${forecast.wind_speed.toFixed(1)} km/h`
+                : "N/A"}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
     </Paper>
   );
 }
