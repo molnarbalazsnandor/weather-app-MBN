@@ -22,7 +22,6 @@ function ForecastBasic({ weather }) {
       <Accordion className="weather-basic-accordion">
         <AccordionSummary
           className="weather-basic-accordion-summary"
-          expandIcon={<ExpandMoreIcon />}
           aria-controls="weather-basic-accordion"
         >
           <div className="left-content">
@@ -32,6 +31,7 @@ function ForecastBasic({ weather }) {
             <Typography variant="h7">
               Weather: {weather.weather[0] ? weather.weather[0].main : "N/A"}
             </Typography>
+            <ExpandMoreIcon />
           </div>
           <div className="right-content">
             <Typography variant="h5">

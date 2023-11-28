@@ -84,6 +84,12 @@ const Icon = ({ weather, style }) => {
   const { state } = useWeatherContext();
 
   useEffect(() => {
+    // Check if isItFiveDayForecast is present in the weather prop
+    if (weather.isItFiveDayForecast) {
+      setIsDay(true);
+      return;
+    }
+
     const currentTime = formatTimeWithTimeZone(weather.dt, state.timezone);
     const sunriseTime = formatTime(state.sunriseTime);
     const sunsetTime = formatTime(state.sunsetTime);
@@ -95,10 +101,6 @@ const Icon = ({ weather, style }) => {
       setIsDay(false);
     }
   }, [weather, state]);
-
-  if (!weather) {
-    return null;
-  }
 
   if (!weather) {
     return null;

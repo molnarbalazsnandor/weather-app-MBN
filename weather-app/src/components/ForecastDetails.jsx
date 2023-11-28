@@ -23,8 +23,8 @@ function ForecastDetails({ weather }) {
 
   return (
     <Paper className="forecast-details">
-      <Typography variant="h5" className="details-title">
-        Details
+      <Typography variant="h6" className="details-title">
+        DETAILS
       </Typography>
       <div className="details-container">
         {renderDetailItem(

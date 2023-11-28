@@ -124,8 +124,18 @@ const fetchWeatherData = async (
 
         const dailyForecast = [];
 
+        const currentDate = new Date().toLocaleDateString(); // Get current date
+
         Object.keys(groupedByDay).forEach((dayOfWeek) => {
           const dayData = groupedByDay[dayOfWeek];
+
+          // Get the date for the given day without the time
+          const formattedDate = dayData[0].dt_txt.split(",")[0];
+
+          // Skip the current day
+          if (formattedDate === currentDate) {
+            return;
+          }
 
           const temperatures = dayData.map((data) => data.main.temp);
           const temp_min = Math.min(...temperatures);
@@ -142,7 +152,7 @@ const fetchWeatherData = async (
             ).value;
           }
 
-          // Calculate the most frequent weather description
+          // Calculate the most frequent weather descriptions
           const weatherDescriptions = dayData.map(
             (data) => data.weather[0].description
           );
@@ -158,9 +168,6 @@ const fetchWeatherData = async (
           const averageWindSpeed =
             dayData.reduce((sum, data) => sum + data.wind.speed, 0) /
             dayData.length;
-
-          // Get the date for the given day without the time
-          const formattedDate = dayData[0].dt_txt.split(",")[0];
 
           // Get the UNIX timestamp for noon on that day
           const noonTimestamp =
@@ -181,6 +188,7 @@ const fetchWeatherData = async (
             ],
             humidity: averageHumidity,
             wind_speed: averageWindSpeed,
+            isItFiveDayForecast: true,
           };
 
           dailyForecast.push(dailyForecastItem);

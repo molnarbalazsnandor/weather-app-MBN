@@ -6,27 +6,25 @@ import { Box, Typography, Paper } from "@mui/material";
 function ForecastWeekly({ weeklyForecast }) {
   return (
     <Paper className="forecast-weekly">
-      <Box display="flex" flexDirection="column" alignItems="center">
-        {weeklyForecast.map((forecast) => (
+      <Typography className="weekly-title" variant="h6">
+        5-DAY FORECAST
+      </Typography>
+      <Box className="weekly-items">
+        {weeklyForecast.slice(0, 5).map((forecast, i) => (
           <Box
-            key={forecast.dt}
-            p={2}
-            m={2}
-            border={1}
-            borderRadius={2}
-            textAlign="center"
+            className={i === 4 ? "weekly-box last-box" : "weekly-box"}
+            key={i}
           >
-            <Typography variant="h6">{forecast.dayOfWeek}</Typography>
+            <Typography variant="h6">
+              {forecast.dayOfWeek.slice(0, 3)}
+            </Typography>
             <Icon style={{ width: "5vw", height: "auto" }} weather={forecast} />
+            <Typography>{forecast.weather[0].main}</Typography>
             <Typography>
-              Min Temperature:{" "}
+              {forecast.temp_max ? Math.round(forecast.temp_max) : "N/A"}/
               {forecast.temp_min ? Math.round(forecast.temp_min) : "N/A"}°C
             </Typography>
-            <Typography>
-              Max Temperature:{" "}
-              {forecast.temp_max ? Math.round(forecast.temp_max) : "N/A"}°C
-            </Typography>
-            <Typography>
+            {/*             <Typography>
               Humidity:{" "}
               {forecast.humidity ? Math.round(forecast.humidity) : "N/A"}%
             </Typography>
@@ -35,7 +33,7 @@ function ForecastWeekly({ weeklyForecast }) {
               {forecast.wind_speed
                 ? `${forecast.wind_speed.toFixed(1)} km/h`
                 : "N/A"}
-            </Typography>
+            </Typography> */}
           </Box>
         ))}
       </Box>
