@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useWeatherContext } from "./../WeatherContext";
 import { Typography } from "@mui/material";
-import { formatTimeWithTimeZone } from "./FetchWeather";
+import { formatTime, formatTimeWithTimeZone } from "./FetchWeather";
 
 const ActualTime = () => {
   const [actualTime, setActualTime] = useState(null);
@@ -9,19 +9,16 @@ const ActualTime = () => {
 
   useEffect(() => {
     const calculateTimeWithTimezone = () => {
-      if (state.timezone) {
-        const currentTimestamp = Math.floor(Date.now() / 1000);
-        const formattedTime = formatTimeWithTimeZone(
-          currentTimestamp,
-          state.timezone
-        );
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      const formattedTime = (
+        state.timezone ? formatTimeWithTimeZone : formatTime
+      )(currentTimestamp, state.timezone);
 
-        setActualTime(formattedTime);
-      }
+      setActualTime(formattedTime);
     };
 
     calculateTimeWithTimezone();
-    
+
     const timerId = setInterval(calculateTimeWithTimezone, 5000);
 
     return () => {

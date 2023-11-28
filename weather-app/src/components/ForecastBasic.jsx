@@ -24,25 +24,30 @@ function ForecastBasic({ weather }) {
           className="weather-basic-accordion-summary"
           aria-controls="weather-basic-accordion"
         >
-          <div className="left-content">
-            <Typography variant="h5">
-              {weather.name}, {weather.sys && weather.sys.country}
-            </Typography>
-            <Typography variant="h7">
-              Weather: {weather.weather[0] ? weather.weather[0].main : "N/A"}
-            </Typography>
+          <Box className="accordion-summary-items">
+            <Box className="accordion-summary-content">
+              <Box className="left-content">
+                <Typography variant="h5">
+                  {weather.name}, {weather.sys && weather.sys.country}
+                </Typography>
+                <Typography variant="h7">
+                  Weather:{" "}
+                  {weather.weather[0] ? weather.weather[0].main : "N/A"}
+                </Typography>
+              </Box>
+              <Box className="right-content">
+                <Typography variant="h5">
+                  {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
+                </Typography>
+                <ActualTime />
+              </Box>
+            </Box>
             <ExpandMoreIcon />
-          </div>
-          <div className="right-content">
-            <Typography variant="h5">
-              {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
-            </Typography>
-            <ActualTime />
-          </div>
+          </Box>
         </AccordionSummary>
         <AccordionDetails className="weather-basic-accordion-details">
-          <div className="details-content">
-            <div className="left-details">
+          <Box className="details-content">
+            <Box className="left-details">
               <Typography variant="body1">
                 Min Temperature:{" "}
                 {weather.main.temp_min
@@ -57,8 +62,8 @@ function ForecastBasic({ weather }) {
                   : "N/A"}
                 °C
               </Typography>
-            </div>
-            <div className="right-details">
+            </Box>
+            <Box className="right-details">
               <Typography variant="body1">
                 Sunset time:{" "}
                 {state.sunsetTime ? formatTime(state.sunsetTime) : "N/A"}
@@ -67,8 +72,8 @@ function ForecastBasic({ weather }) {
                 Sunrise time:{" "}
                 {state.sunriseTime ? formatTime(state.sunriseTime) : "N/A"}
               </Typography>
-            </div>
-          </div>
+            </Box>
+          </Box>
         </AccordionDetails>
       </Accordion>
 
