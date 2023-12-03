@@ -17,12 +17,16 @@ import { formatTime } from "./FetchWeather";
 function ForecastBasic({ weather }) {
   const { state } = useWeatherContext();
 
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState(false);
+
   return (
     <Box className="forecast-basic">
       <Accordion className="weather-basic-accordion">
         <AccordionSummary
           className="weather-basic-accordion-summary"
           aria-controls="weather-basic-accordion"
+          expanded={isAccordionExpanded}
+          onClick={() => setIsAccordionExpanded(!isAccordionExpanded)}
         >
           <Box className="accordion-summary-items">
             <Box className="accordion-summary-content">
@@ -42,7 +46,14 @@ function ForecastBasic({ weather }) {
                 <ActualTime />
               </Box>
             </Box>
-            <ExpandMoreIcon />
+            <ExpandMoreIcon
+              style={{
+                transform: isAccordionExpanded
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+                transition: "transform 0.2s ease",
+              }}
+            />
           </Box>
         </AccordionSummary>
         <AccordionDetails className="weather-basic-accordion-details">
@@ -77,7 +88,10 @@ function ForecastBasic({ weather }) {
         </AccordionDetails>
       </Accordion>
 
-      <Icon style={{ width: "30vw", height: "auto" }} weather={weather}></Icon>
+      <Icon
+        style={{ width: "30vw", maxWidth: "200px", height: "auto" }}
+        weather={weather}
+      ></Icon>
     </Box>
   );
 }

@@ -8,7 +8,7 @@ const ActualTime = () => {
   const { state } = useWeatherContext();
 
   useEffect(() => {
-    const calculateTimeWithTimezone = () => {
+    const calculateTime = () => {
       const currentTimestamp = Math.floor(Date.now() / 1000);
       const formattedTime = (
         state.timezone ? formatTimeWithTimeZone : formatTime
@@ -17,9 +17,9 @@ const ActualTime = () => {
       setActualTime(formattedTime);
     };
 
-    calculateTimeWithTimezone();
+    calculateTime();
 
-    const timerId = setInterval(calculateTimeWithTimezone, 5000);
+    const timerId = setInterval(calculateTime, 5000);
 
     return () => {
       // Clean up the timer on component unmount
