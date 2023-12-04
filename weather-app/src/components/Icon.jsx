@@ -29,6 +29,7 @@ const weatherIconsDay = {
   "heavy rain": require("./../pictures/icons/day/rain.svg").ReactComponent,
   "heavy intensity rain": require("./../pictures/icons/day/rain.svg")
     .ReactComponent,
+  snow: require("./../pictures/icons/day/snow.svg").ReactComponent,
   "light snow": require("./../pictures/icons/day/snow.svg").ReactComponent,
   "light shower snow": require("./../pictures/icons/day/snow.svg")
     .ReactComponent,
@@ -68,6 +69,7 @@ const weatherIconsNight = {
   "heavy rain": require("./../pictures/icons/night/rain.svg").ReactComponent,
   "heavy intensity rain": require("./../pictures/icons/night/rain.svg")
     .ReactComponent,
+  snow: require("./../pictures/icons/night/snow.svg").ReactComponent,
   "light snow": require("./../pictures/icons/night/snow.svg").ReactComponent,
   "light shower snow": require("./../pictures/icons/night/snow.svg")
     .ReactComponent,

@@ -1,4 +1,4 @@
-.forecast-three-hourly{
+.forecast-three-hourly {
   width: 100%;
   height: auto;
   flex: 1;
@@ -6,19 +6,31 @@
   background-color: #202B3B !important;
   color: #e6e6ed;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
-
-.flip-card{
+.forecast-three-hourly .swiper {
+  padding: 20px;
+}
+.forecast-three-hourly .swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper {
+  width: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper .flip-card {
   background-color: #2e3d54 !important;
   color: #e6e6ed !important;
 }
-
-.swiper-button-next {
-  color:#e6e6ed !important;
+.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper .flip-card .three-sixty {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-
-.swiper-button-prev {
-  color:#e6e6ed !important;
-}
+.forecast-three-hourly .swiper .swiper-button-next,
+.forecast-three-hourly .swiper .swiper-button-prev {
+  color: #e6e6ed !important;
+}/*# sourceMappingURL=ForecastThreeHourly.css.map */

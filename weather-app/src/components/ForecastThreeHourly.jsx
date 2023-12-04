@@ -27,88 +27,69 @@ function ForecastThreeHourly({ hourlyForecast }) {
   return (
     <Paper className="forecast-three-hourly">
       <Swiper
+        className="swiper"
         modules={[Navigation, A11y]}
         spaceBetween={0}
         slidesPerView={5}
         navigation
         initialSlide={0}
-        style={{
-          width: "90%",
-          height: "auto",
-        }}
       >
         {hourlyForecast.map((forecast, index) => (
-          <SwiperSlide
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "8vw",
-              height: "auto",
-            }}
-          >
-            <ReactCardFlip
-              className="flip-card"
-              key={forecast.dt}
-              isFlipped={isFlipped[index]}
-              flipDirection="horizontal"
-            >
-              <Paper
-                className="flip-card front"
-                style={{
-                  width: "8vw",
-                  height: "17vh",
-                }}
-                onClick={() => handleCardClick(index)}
+          <SwiperSlide className="swiper-slide" key={index}>
+            <Box className="flip-card-wrapper">
+              <ReactCardFlip
+                className="flip-card"
+                key={forecast.dt}
+                isFlipped={isFlipped[index]}
+                flipDirection="horizontal"
               >
-                <Icon
-                  style={{ width: "5vw", height: "auto" }}
-                  weather={forecast}
-                />
-                <Typography variant="h6">
-                  Time: {formatTimeWithTimeZone(forecast.dt, state.timezone)}
-                </Typography>
-                <Typography variant="h6">
-                  Temperature: {Math.round(forecast.main.temp)}°C
-                </Typography>
-                <ThreeSixtyIcon
-                  style={{ position: "absolute", top: 10, right: 10 }}
-                />
-              </Paper>
-              <Paper
-                className="flip-card back"
-                style={{
-                  width: "8vw",
-                  height: "17vh",
-                }}
-                onClick={() => handleCardClick(index)}
-              >
-                <Typography variant="body1">
-                  Humidity:{" "}
-                  {forecast.main.humidity
-                    ? Math.round(forecast.main.humidity)
-                    : "N/A"}
-                  %
-                </Typography>
-                <Typography variant="body1">
-                  Pressure:{" "}
-                  {forecast.main.pressure
-                    ? Math.round(forecast.main.pressure)
-                    : "N/A"}{" "}
-                  hPa
-                </Typography>
-                <Typography variant="body1">
-                  Wind Speed:{" "}
-                  {forecast.wind
-                    ? `${(forecast.wind.speed * 3.6).toFixed(1)} km/h`
-                    : "N/A"}
-                </Typography>
-                <ThreeSixtyIcon
-                  style={{ position: "absolute", top: 10, right: 10 }}
-                />
-              </Paper>
-            </ReactCardFlip>
+                <Paper
+                  className="flip-card front"
+                  onClick={() => handleCardClick(index)}
+                >
+                  <Box className="three-sixty">
+                    <ThreeSixtyIcon />
+                  </Box>
+                  <Box className="front-data"></Box>
+                  <Typography variant="h6">
+                    {formatTimeWithTimeZone(forecast.dt, state.timezone)}
+                  </Typography>
+                  <Icon
+                    style={{ width: "5vw", height: "auto" }}
+                    weather={forecast}
+                  />
+                  <Typography variant="h6">
+                    {Math.round(forecast.main.temp)}°C
+                  </Typography>
+                </Paper>
+                <Paper
+                  className="flip-card back"
+                  onClick={() => handleCardClick(index)}
+                >
+                  <Typography variant="body1">
+                    Humidity:{" "}
+                    {forecast.main.humidity
+                      ? Math.round(forecast.main.humidity)
+                      : "N/A"}
+                    %
+                  </Typography>
+                  <Typography variant="body1">
+                    Pressure:{" "}
+                    {forecast.main.pressure
+                      ? Math.round(forecast.main.pressure)
+                      : "N/A"}{" "}
+                    hPa
+                  </Typography>
+                  <Typography variant="body1">
+                    Wind Speed:{" "}
+                    {forecast.wind
+                      ? `${(forecast.wind.speed * 3.6).toFixed(1)} km/h`
+                      : "N/A"}
+                  </Typography>
+                  <ThreeSixtyIcon />
+                </Paper>
+              </ReactCardFlip>
+            </Box>
           </SwiperSlide>
         ))}
       </Swiper>

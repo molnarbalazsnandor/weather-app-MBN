@@ -1,0 +1,54 @@
+.forecast-three-hourly {
+  width: 100%;
+  height: auto;
+  flex: 1;
+  margin-bottom: 3%;
+  background-color: #202B3B !important;
+  color: #e6e6ed;
+  display: flex;
+  justify-content: center;
+
+  .swiper {
+    padding: 20px;
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+
+      .flip-card-wrapper {
+        width: 8vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .flip-card {
+          background-color: #2e3d54 !important;
+          color: #e6e6ed !important;
+
+          .front {
+
+            .front-data {}
+          }
+
+          .three-sixty {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+
+          .back {}
+        }
+
+      }
+
+
+    }
+
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #e6e6ed !important;
+    }
+
+  }
+}

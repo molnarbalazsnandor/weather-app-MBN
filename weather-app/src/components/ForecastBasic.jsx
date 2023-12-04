@@ -31,7 +31,7 @@ function ForecastBasic({ weather }) {
           <Box className="accordion-summary-items">
             <Box className="accordion-summary-content">
               <Box className="left-content">
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{ fontWeight: "800" }}>
                   {weather.name}, {weather.sys && weather.sys.country}
                 </Typography>
                 <Typography variant="h7">
@@ -40,7 +40,7 @@ function ForecastBasic({ weather }) {
                 </Typography>
               </Box>
               <Box className="right-content">
-                <Typography variant="h5">
+                <Typography sx={{ fontWeight: "800" }} variant="h5">
                   {weather.main.temp ? Math.round(weather.main.temp) : "N/A"}°C
                 </Typography>
                 <ActualTime />
@@ -87,11 +87,12 @@ function ForecastBasic({ weather }) {
           </Box>
         </AccordionDetails>
       </Accordion>
-
-      <Icon
-        style={{ width: "30vw", maxWidth: "200px", height: "auto" }}
-        weather={weather}
-      ></Icon>
+      <Box className="icon-box">
+        <Icon
+          style={{ width: "50vw", maxWidth: "200px", height: "auto" }}
+          weather={weather}
+        ></Icon>
+      </Box>
     </Box>
   );
 }
