@@ -50,12 +50,14 @@ function ForecastWeekly({ weeklyForecast }) {
                 <Box className="weekly-accordion-details-box">
                   <OpacityIcon />
                   <Typography>
+                    :{" "}
                     {forecast.humidity ? Math.round(forecast.humidity) : "N/A"}%
                   </Typography>
                 </Box>
                 <Box className="weekly-accordion-details-box">
                   <AirIcon />
                   <Typography>
+                    :{" "}
                     {forecast.wind_speed
                       ? `${forecast.wind_speed.toFixed(1)} km/h`
                       : "N/A"}

@@ -15,20 +15,26 @@
   display: flex;
   justify-content: center;
 }
-.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper {
+.forecast-three-hourly .swiper .swiper-slide .flip-card {
+  background-color: #2e3d54 !important;
+  color: #e6e6ed !important;
   width: 8vw;
+  min-width: 110px;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper .flip-card {
-  background-color: #2e3d54 !important;
-  color: #e6e6ed !important;
-}
-.forecast-three-hourly .swiper .swiper-slide .flip-card-wrapper .flip-card .three-sixty {
+.forecast-three-hourly .swiper .swiper-slide .flip-card .three-sixty {
+  height: 10%;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  align-items: end;
+  justify-content: center;
+  color: #9399a2;
+}
+.forecast-three-hourly .swiper .swiper-slide .flip-card .back-box {
+  display: flex;
 }
 .forecast-three-hourly .swiper .swiper-button-next,
 .forecast-three-hourly .swiper .swiper-button-prev {
