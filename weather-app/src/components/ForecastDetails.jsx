@@ -11,11 +11,15 @@ function ForecastDetails({ weather }) {
     <Paper className="detail-item">
       <Box className="icon-and-caption">
         <Box className="icon-container">{icon}</Box>
-        <Typography variant="h6" className="title">
+        <Typography variant="h6" className="detail-item-title">
           {title}
         </Typography>
       </Box>
-      <Typography variant="h5" className="info">
+      <Typography
+        variant="h5"
+        className="detail-item-info"
+        style={{ color: "#e6e6ed", fontWeight: "800" }}
+      >
         {info}
       </Typography>
     </Paper>
