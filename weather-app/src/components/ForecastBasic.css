@@ -1,5 +1,6 @@
 .forecast-basic {
   width: 100%;
+  flex: 1;
   height: 100%;
   margin-bottom: 3%;
   box-sizing: border-box;

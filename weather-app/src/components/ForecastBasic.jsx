@@ -107,7 +107,11 @@ function ForecastBasic({ weather }) {
       </Accordion>
       <Box className="icon-box">
         <Icon
-          style={{ width: "50vw", maxWidth: "200px", height: "auto" }}
+          style={{
+            width: "30vw",
+            maxWidth: "150px",
+            height: "auto",
+          }}
           weather={weather}
         ></Icon>
       </Box>
