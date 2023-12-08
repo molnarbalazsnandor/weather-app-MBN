@@ -34,10 +34,6 @@
   padding: 8px;
   color: #9399a2;
 }
-.forecast-weekly .weekly-items .weekly-box .weekly-item-icon {
-  width: 15%;
-  margin-right: 8px;
-}
 .forecast-weekly .weekly-items .weekly-box .weekly-accordion {
   width: 60%;
   background-color: transparent;
@@ -51,29 +47,65 @@
   justify-content: center;
   align-items: center;
 }
-.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-typography {
+.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
 }
-.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .description {
+@media (min-width: 850px) and (max-width: 1100px) {
+  .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width: 850px) {
+  .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts {
+    justify-content: space-between;
+  }
+}
+.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts .weekly-accordion-summary-typography {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  padding-right: 8px;
+}
+@media (max-width: 850px) {
+  .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts .weekly-accordion-summary-typography {
+    justify-content: center;
+    width: auto;
+    padding-right: 20px;
+  }
+}
+.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .weekly-accordion-summary-texts .description {
   font-weight: 800;
 }
 .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .expand-more-icon {
   color: #e6e6ed;
 }
 .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-details {
-  width: 100%;
+  width: 75%;
   color: #e6e6ed;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
+}
+@media (min-width: 850px) and (max-width: 1340px) {
+  .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-details {
+    flex-direction: column;
+  }
+}
+@media (max-width: 520px) {
+  .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-details {
+    flex-direction: column;
+  }
 }
 .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-details .weekly-accordion-details-box {
   display: flex;
   flex-direction: row;
-  padding-right: 1vw;
 }
 .forecast-weekly .weekly-items .last-box {
   border-bottom: none;

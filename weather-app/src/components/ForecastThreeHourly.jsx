@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ForecastThreeHourly.css";
 import { Paper, Typography, Box } from "@mui/material";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
@@ -20,6 +20,11 @@ function ForecastThreeHourly({ hourlyForecast }) {
 
   const initialFlipState = new Array(hourlyForecast.length).fill(false);
   const [isFlipped, setIsFlipped] = useState(initialFlipState);
+
+  useEffect(() => {
+    // Reset isFlipped when hourlyForecast changes
+    setIsFlipped(new Array(hourlyForecast.length).fill(false));
+  }, [hourlyForecast]);
 
   const handleCardClick = (index) => {
     const updatedFlipState = [...isFlipped];

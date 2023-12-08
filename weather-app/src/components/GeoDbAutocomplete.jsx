@@ -34,6 +34,7 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
       ...provided,
       borderRadius: "5px",
       width: "60vw",
+      minWidth: "350px",
       marginLeft: "3%",
       border: "2px solid #9399a2",
       backgroundColor: "#202B3B",
