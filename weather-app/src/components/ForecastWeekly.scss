@@ -33,6 +33,7 @@
       .weekly-item-day {
         width: 15%;
         padding: 8px;
+        color: #9399a2;
       }
 
       .weekly-item-icon {
@@ -59,6 +60,10 @@
             height: 100%;
             display: flex;
             justify-content: center;
+          }
+
+          .description {
+            font-weight: 800;
           }
 
           .expand-more-icon {

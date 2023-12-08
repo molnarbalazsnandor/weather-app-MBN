@@ -25,8 +25,8 @@ function WeatherApp() {
       <GeoDbAutocomplete
         onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
       />
-      <div className="forecasts">
-        <div className="forecast-day">
+      <Box className="forecasts">
+        <Box className="forecast-day">
           {selectedCity && (
             <FetchWeather
               selectedCity={selectedCity}
@@ -45,13 +45,13 @@ function WeatherApp() {
             />
           )}
           {weather && <ForecastDetails weather={weather} />}
-        </div>
-        <div className="forecast-week">
+        </Box>
+        <Box className="forecast-week">
           {weeklyForecast.length > 0 && (
             <ForecastWeekly weeklyForecast={weeklyForecast} />
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   );
 }

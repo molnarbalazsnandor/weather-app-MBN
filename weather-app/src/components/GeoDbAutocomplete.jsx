@@ -34,7 +34,8 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
       ...provided,
       borderRadius: "5px",
       width: "60vw",
-      border: "2px solid #676984",
+      marginLeft: "3%",
+      border: "2px solid #9399a2",
       backgroundColor: "#202B3B",
       boxShadow: state.isFocused ? "0 0 0 2px #3699FF" : null,
       "& div": {
@@ -44,7 +45,7 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isFocused ? "#3699FF" : "#676984",
-      color: state.isFocused ? "white" : null,
+      color: state.isFocused ? "white" : "black",
     }),
   };
 

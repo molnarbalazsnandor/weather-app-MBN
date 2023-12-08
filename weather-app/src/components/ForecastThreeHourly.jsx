@@ -40,16 +40,16 @@ function ForecastThreeHourly({ hourlyForecast }) {
             slidesPerView: 1,
           },
           // when window width is >= 480px
-          540: {
+          500: {
             slidesPerView: 2,
           },
-          800: {
+          700: {
             slidesPerView: 3,
           },
-          1050: {
+          1100: {
             slidesPerView: 4,
           },
-          1210: {
+          1380: {
             slidesPerView: 5,
           },
         }}
@@ -105,7 +105,7 @@ function ForecastThreeHourly({ hourlyForecast }) {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-evenly",
-                    alignItems: "center",
+                    alignItems: "start",
                   }}
                 >
                   <Box className="back-box">

@@ -32,6 +32,7 @@
 .forecast-weekly .weekly-items .weekly-box .weekly-item-day {
   width: 15%;
   padding: 8px;
+  color: #9399a2;
 }
 .forecast-weekly .weekly-items .weekly-box .weekly-item-icon {
   width: 15%;
@@ -55,6 +56,9 @@
   height: 100%;
   display: flex;
   justify-content: center;
+}
+.forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .description {
+  font-weight: 800;
 }
 .forecast-weekly .weekly-items .weekly-box .weekly-accordion .weekly-accordion-summary .expand-more-icon {
   color: #e6e6ed;

@@ -5,17 +5,30 @@
   align-items: start;
   justify-content: flex-start;
   height: 100vh;
-  width: 100vw;
+  width: auto;
   padding: 2%;
   box-sizing: border-box;
 }
+@media (max-width: 800px) {
+  .weather-app {
+    height: auto;
+    padding: 2% 0 2% 0;
+    align-items: center;
+  }
+}
 .weather-app .forecasts {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-top: 3%;
   box-sizing: border-box;
+}
+@media (max-width: 800px) {
+  .weather-app .forecasts {
+    flex-direction: column;
+  }
 }
 .weather-app .forecasts .forecast-day {
   display: flex;
@@ -26,9 +39,21 @@
   width: 60vw;
   box-sizing: border-box;
 }
+@media (max-width: 800px) {
+  .weather-app .forecasts .forecast-day {
+    width: 80%;
+    margin-bottom: 3%;
+  }
+}
 .weather-app .forecasts .forecast-week {
   height: 100%;
   width: 30vw;
   margin-left: 3%;
   box-sizing: border-box;
+}
+@media (max-width: 800px) {
+  .weather-app .forecasts .forecast-week {
+    width: 80%;
+    margin-left: 0%;
+  }
 }/*# sourceMappingURL=WeatherApp.css.map */

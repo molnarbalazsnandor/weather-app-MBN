@@ -9,6 +9,9 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
 import Icon from "./Icon";
 import ActualTime from "./ActualTime";
 import { useWeatherContext } from "./../WeatherContext";
@@ -59,30 +62,45 @@ function ForecastBasic({ weather }) {
         <AccordionDetails className="weather-basic-accordion-details">
           <Box className="details-content">
             <Box className="left-details">
-              <Typography variant="body1">
-                Min Temperature:{" "}
-                {weather.main.temp_min
-                  ? Math.round(weather.main.temp_min)
-                  : "N/A"}
-                °C
-              </Typography>
-              <Typography variant="body1">
-                Max Temperature:{" "}
-                {weather.main.temp_max
-                  ? Math.round(weather.main.temp_max)
-                  : "N/A"}
-                °C
-              </Typography>
+              <Box className="accordion-details-box">
+                <ThermostatIcon
+                  className="accordion-details-icon"
+                  sx={{ color: "#9399a2" }}
+                />
+                <Typography variant="body1">
+                  Min. temp:{" "}
+                  {weather.main.temp_min
+                    ? Math.round(weather.main.temp_min)
+                    : "N/A"}
+                  °C
+                </Typography>
+              </Box>
+              <Box className="accordion-details-box">
+                <ThermostatIcon className="accordion-details-icon" />
+                <Typography variant="body1">
+                  Max. temp:{" "}
+                  {weather.main.temp_max
+                    ? Math.round(weather.main.temp_max)
+                    : "N/A"}
+                  °C
+                </Typography>
+              </Box>
             </Box>
             <Box className="right-details">
-              <Typography variant="body1">
-                Sunset time:{" "}
-                {state.sunsetTime ? formatTime(state.sunsetTime) : "N/A"}
-              </Typography>
-              <Typography variant="body1">
-                Sunrise time:{" "}
-                {state.sunriseTime ? formatTime(state.sunriseTime) : "N/A"}
-              </Typography>
+              <Box className="accordion-details-box">
+                <Brightness4Icon className="accordion-details-icon" />
+                <Typography variant="body1">
+                  Sunset:{" "}
+                  {state.sunsetTime ? formatTime(state.sunsetTime) : "N/A"}
+                </Typography>
+              </Box>
+              <Box className="accordion-details-box">
+                <WbTwilightIcon className="accordion-details-icon" />
+                <Typography variant="body1">
+                  Sunrise:{" "}
+                  {state.sunriseTime ? formatTime(state.sunriseTime) : "N/A"}
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </AccordionDetails>

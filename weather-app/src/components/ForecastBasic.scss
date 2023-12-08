@@ -1,7 +1,6 @@
 .forecast-basic {
   width: 100%;
-  height: auto;
-  flex: 1;
+  height: 100%;
   margin-bottom: 3%;
   box-sizing: border-box;
   display: flex;
@@ -53,26 +52,55 @@
 
 
     .details-content {
+      width: 100%;
       display: flex;
       flex-direction: row;
-      align-items: start;
       justify-content: space-evenly;
-      width: 100%;
+
+      @media (max-width: 890px) {
+        flex-direction: column;
+      }
+
+      .accordion-details-icon {
+        margin-right: 6px;
+      }
+
+      .left-details {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (max-width: 890px) {
+          width: 100%;
+        }
+      }
+
+      .right-details {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (max-width: 890px) {
+          width: 100%;
+        }
+      }
+
+      .accordion-details-box {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 2px;
+
+        @media (max-width: 890px) {
+          justify-content: space-between;
+        }
+      }
     }
 
-    .left-details {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
 
-    .right-details {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
   }
 
   .icon-box {

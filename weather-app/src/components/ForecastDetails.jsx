@@ -26,11 +26,11 @@ function ForecastDetails({ weather }) {
       <Typography variant="h6" className="details-title">
         DETAILS
       </Typography>
-      <div className="details-container">
+      <Box className="details-container">
         {renderDetailItem(
           "Real Feel",
           <ThermostatIcon className="icon" />,
-          `${Math.round(weather.main.feels_like)}°C`
+          `${Math.round(weather.main.feels_like)} °C`
         )}
         {renderDetailItem(
           "Wind Speed",
@@ -40,14 +40,14 @@ function ForecastDetails({ weather }) {
         {renderDetailItem(
           "Humidity",
           <OpacityIcon className="icon" />,
-          `${Math.round(weather.main.humidity)}%`
+          `${Math.round(weather.main.humidity)} %`
         )}
         {renderDetailItem(
           "Pressure",
           <SpeedIcon className="icon" />,
           `${Math.round(weather.main.pressure)} hPa`
         )}
-      </div>
+      </Box>
     </Paper>
   );
 }

@@ -20,7 +20,7 @@ function ForecastWeekly({ weeklyForecast }) {
         5-DAY FORECAST
       </Typography>
       <Box className="weekly-items">
-        {weeklyForecast.slice(0, 5).map((forecast, i) => (
+        {weeklyForecast.slice(1, 6).map((forecast, i) => (
           <Box
             className={i === 4 ? "weekly-box last-box" : "weekly-box"}
             key={i}
@@ -30,7 +30,7 @@ function ForecastWeekly({ weeklyForecast }) {
             </Typography>
             <Icon
               className="weekly-item-icon"
-              style={{ width: "5vw", height: "auto" }}
+              style={{ width: "5vw", minWidth: "60px", height: "auto" }}
               weather={forecast}
             />
             <Accordion className="weekly-accordion">
@@ -38,7 +38,7 @@ function ForecastWeekly({ weeklyForecast }) {
                 expandIcon={<ExpandMoreIcon className="expand-more-icon" />}
                 className="weekly-accordion-summary"
               >
-                <Typography className="weekly-accordion-summary-typography">
+                <Typography className="weekly-accordion-summary-typography description">
                   {forecast.weather[0].description}
                 </Typography>
                 <Typography className="weekly-accordion-summary-typography">
