@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ForecastThreeHourly.css";
 import { Paper, Typography, Box } from "@mui/material";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
@@ -20,10 +20,17 @@ function ForecastThreeHourly({ hourlyForecast }) {
 
   const initialFlipState = new Array(hourlyForecast.length).fill(false);
   const [isFlipped, setIsFlipped] = useState(initialFlipState);
+  const swiperRef = useRef(null);
 
+  // Reset Swiper when hourlyForecast changes
   useEffect(() => {
-    // Reset isFlipped when hourlyForecast changes
     setIsFlipped(new Array(hourlyForecast.length).fill(false));
+
+    setTimeout(() => {
+      if (swiperRef.current) {
+        swiperRef.current.slideTo(0);
+      }
+    }, 600);
   }, [hourlyForecast]);
 
   const handleCardClick = (index) => {
@@ -40,11 +47,13 @@ function ForecastThreeHourly({ hourlyForecast }) {
         spaceBetween={0}
         navigation
         initialSlide={0}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         breakpoints={{
           320: {
             slidesPerView: 1,
           },
-          // when window width is >= 480px
           500: {
             slidesPerView: 2,
           },

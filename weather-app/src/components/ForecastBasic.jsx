@@ -28,7 +28,7 @@ function ForecastBasic({ weather }) {
         <AccordionSummary
           className="weather-basic-accordion-summary"
           aria-controls="weather-basic-accordion"
-          expanded={isAccordionExpanded}
+          expanded={isAccordionExpanded ? "true" : undefined}
           onClick={() => setIsAccordionExpanded(!isAccordionExpanded)}
         >
           <Box className="accordion-summary-items">

@@ -8,6 +8,7 @@ import ForecastBasic from "./ForecastBasic";
 import ForecastThreeHourly from "./ForecastThreeHourly";
 import ForecastWeekly from "./ForecastWeekly";
 import ForecastDetails from "./ForecastDetails";
+import ParticlesBackground from "./ParticlesBackground";
 
 function WeatherApp() {
   const [selectedCity, setSelectedCity] = useState({
@@ -21,6 +22,8 @@ function WeatherApp() {
 
   return (
     <Box className="weather-app">
+      <ParticlesBackground />
+
       <Geolocation setSelectedCity={setSelectedCity} />
       <GeoDbAutocomplete
         onCitySelect={(selectedOption) => setSelectedCity(selectedOption)}
