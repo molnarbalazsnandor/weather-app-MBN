@@ -35,7 +35,6 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
       borderRadius: "5px",
       width: "60vw",
       minWidth: "350px",
-      marginLeft: "3%",
       border: "2px solid #9399a2",
       backgroundColor: "#202B3B",
       boxShadow: state.isFocused ? "0 0 0 2px #3699FF" : null,
@@ -51,7 +50,7 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
   };
 
   return (
-    <Box className="autocomplete">
+    <Box className="autocomplete" style={{ marginLeft: "2%" }}>
       <AsyncPaginate
         className="async-paginate"
         placeholder="Search for a city"

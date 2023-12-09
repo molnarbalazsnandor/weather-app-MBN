@@ -1,17 +1,23 @@
 import React, { useCallback } from "react";
 import Particles from "react-tsparticles";
-import particlesConfig from "./particles config/particles";
+import rainConfig from "./particles config/rainConfig";
+import polygonConfig from "./particles config/polygonConfig";
+import snowConfig from "./particles config/snowConfig";
 
-const ParticlesBackground = () => {
-  const particlesInit = useCallback((engine) => {
-    // Custom initialization if needed
-    // console.log(engine);
-  }, []);
+const ParticlesBackground = ({ weather }) => {
+  const particlesInit = useCallback((engine) => {}, []);
 
-  const particlesLoaded = useCallback((container) => {
-    // Custom actions after particles are loaded if needed
-    // console.log(container);
-  }, []);
+  const particlesLoaded = useCallback((container) => {}, []);
+
+  let selectedConfig;
+
+  if (weather === "rain") {
+    selectedConfig = rainConfig;
+  } else if (weather === "snow") {
+    selectedConfig = snowConfig;
+  } else {
+    selectedConfig = polygonConfig;
+  }
 
   return (
     <Particles
@@ -22,7 +28,7 @@ const ParticlesBackground = () => {
         top: "0",
         left: "0",
       }}
-      params={particlesConfig}
+      params={selectedConfig}
       init={particlesInit}
       loaded={particlesLoaded}
     />

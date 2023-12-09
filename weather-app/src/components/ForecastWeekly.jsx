@@ -30,7 +30,7 @@ function ForecastWeekly({ weeklyForecast }) {
         5-DAY FORECAST
       </Typography>
       <Box className="weekly-items">
-        {weeklyForecast.slice(1, 6).map((forecast, i) => (
+        {weeklyForecast.slice(0, 5).map((forecast, i) => (
           <Box
             className={i === 4 ? "weekly-box last-box" : "weekly-box"}
             key={i}

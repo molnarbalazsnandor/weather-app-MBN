@@ -108,8 +108,8 @@ function ForecastBasic({ weather }) {
       <Box className="icon-box">
         <Icon
           style={{
-            width: "30vw",
-            maxWidth: "150px",
+            width: "100%",
+            maxWidth: "280px",
             height: "auto",
           }}
           weather={weather}

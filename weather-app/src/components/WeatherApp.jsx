@@ -22,7 +22,9 @@ function WeatherApp() {
 
   return (
     <Box className="weather-app">
-      <ParticlesBackground />
+      <ParticlesBackground
+        weather={weather?.weather?.[0]?.main.toLowerCase()}
+      />
 
       <Geolocation setSelectedCity={setSelectedCity} />
       <GeoDbAutocomplete
