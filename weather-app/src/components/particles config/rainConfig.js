@@ -30,7 +30,7 @@ const rainConfig = {
   },
   particles: {
     number: {
-      value: 400,
+      value: 200,
       density: {
         enable: true,
         value_area: 800,
@@ -55,7 +55,7 @@ const rainConfig = {
       },
     },
     opacity: {
-      value: 1,
+      value: 0.5,
       random: true,
       anim: {
         enable: false,
@@ -69,7 +69,7 @@ const rainConfig = {
       random: true,
       anim: {
         enable: false,
-        speed: 40,
+        speed: 20,
         size_min: 0.1,
         sync: false,
       },
@@ -86,7 +86,7 @@ const rainConfig = {
       speed: 40,
       direction: "bottom",
       random: false,
-      straight: true,
+      straight: false,
       out_mode: "out",
       bounce: false,
       attract: {

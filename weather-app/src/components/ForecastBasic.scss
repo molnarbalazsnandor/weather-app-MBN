@@ -2,7 +2,6 @@
   width: 100%;
   flex: 1;
   height: 100%;
-  margin-bottom: 3%;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -106,6 +105,7 @@
 
   .icon-box {
     width: 40%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
