@@ -1,10 +1,11 @@
-const polygonConfig = {
+const snowConfig = {
   background: {
     color: {
-      value: "#0B131E",
+      value: "transparent",
     },
-    image: "",
-    position: "",
+    image:
+      "radial-gradient(circle at 50% 170%, rgba(62,122,136,1) 0%, rgba(11,19,30,1) 70%)",
+    position: "100% 100%",
     repeat: "",
     size: "",
     opacity: 1,
@@ -30,14 +31,14 @@ const polygonConfig = {
   },
   particles: {
     number: {
-      value: 80,
+      value: 400,
       density: {
         enable: true,
         value_area: 800,
       },
     },
     color: {
-      value: "#ffffff",
+      value: "#fff",
     },
     shape: {
       type: "circle",
@@ -56,16 +57,16 @@ const polygonConfig = {
     },
     opacity: {
       value: 0.5,
-      random: false,
+      random: true,
       anim: {
         enable: false,
-        speed: 0.5,
+        speed: 1,
         opacity_min: 0.1,
         sync: false,
       },
     },
     size: {
-      value: 3,
+      value: 6,
       random: true,
       anim: {
         enable: false,
@@ -75,16 +76,16 @@ const polygonConfig = {
       },
     },
     line_linked: {
-      enable: true,
-      distance: 150,
+      enable: false,
+      distance: 500,
       color: "#ffffff",
       opacity: 0.4,
-      width: 1,
+      width: 2,
     },
     move: {
       enable: true,
-      speed: 0.2,
-      direction: "none",
+      speed: 1,
+      direction: "bottom",
       random: false,
       straight: false,
       out_mode: "out",
@@ -105,7 +106,7 @@ const polygonConfig = {
       },
       onclick: {
         enable: true,
-        mode: "push",
+        mode: "repulse",
       },
       resize: true,
     },
@@ -113,18 +114,18 @@ const polygonConfig = {
       grab: {
         distance: 400,
         line_linked: {
-          opacity: 1,
+          opacity: 0.5,
         },
       },
       bubble: {
-        distance: 113.73209772535799,
-        size: 3,
-        duration: 2,
-        opacity: 8,
+        distance: 400,
+        size: 4,
+        duration: 0.3,
+        opacity: 1,
         speed: 3,
       },
       repulse: {
-        distance: 8.424599831508,
+        distance: 100,
         duration: 0.4,
       },
       push: {
@@ -137,5 +138,4 @@ const polygonConfig = {
   },
   retina_detect: true,
 };
-
-export default polygonConfig;
+export default snowConfig;

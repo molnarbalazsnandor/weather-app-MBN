@@ -1,10 +1,11 @@
-const snowConfig = {
+const rainConfig = {
   background: {
     color: {
-      value: "#0B131E",
+      value: "transparent",
     },
-    image: "",
-    position: "",
+    image:
+      "radial-gradient(circle at 50% 170%, rgba(62,122,136,1) 0%, rgba(11,19,30,1) 70%)",
+    position: "100% 100%",
     repeat: "",
     size: "",
     opacity: 1,
@@ -30,7 +31,7 @@ const snowConfig = {
   },
   particles: {
     number: {
-      value: 400,
+      value: 200,
       density: {
         enable: true,
         value_area: 800,
@@ -65,11 +66,11 @@ const snowConfig = {
       },
     },
     size: {
-      value: 6,
+      value: 0.5,
       random: true,
       anim: {
         enable: false,
-        speed: 40,
+        speed: 20,
         size_min: 0.1,
         sync: false,
       },
@@ -83,7 +84,8 @@ const snowConfig = {
     },
     move: {
       enable: true,
-      speed: 1,
+      speed: 40,
+      angle: 2,
       direction: "bottom",
       random: false,
       straight: false,
@@ -100,7 +102,7 @@ const snowConfig = {
     detect_on: "canvas",
     events: {
       onhover: {
-        enable: true,
+        enable: false,
         mode: "bubble",
       },
       onclick: {
@@ -137,4 +139,5 @@ const snowConfig = {
   },
   retina_detect: true,
 };
-export default snowConfig;
+
+export default rainConfig;
