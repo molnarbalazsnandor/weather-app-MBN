@@ -1,14 +1,14 @@
-const snowConfig = {
+const daySnowConfig = {
   background: {
     color: {
       value: "transparent",
     },
     image:
-      "radial-gradient(circle at 50% 170%, rgba(62,122,136,1) 0%, rgba(11,19,30,1) 70%)",
+      "radial-gradient(circle at 50% -170%, rgba(206,112,149,1) 0%, rgba(18,30,47,1) 90%)",
     position: "100% 100%",
     repeat: "",
     size: "",
-    opacity: 1,
+    transition: 1,
   },
   pauseOnBlur: true,
   pauseOnOutsideViewport: true,
@@ -138,4 +138,4 @@ const snowConfig = {
   },
   retina_detect: true,
 };
-export default snowConfig;
+export default daySnowConfig;
