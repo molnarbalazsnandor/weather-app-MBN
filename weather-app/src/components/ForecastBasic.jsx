@@ -3,7 +3,6 @@ import "./ForecastBasic.css";
 import {
   Box,
   Typography,
-  Paper,
   Accordion,
   AccordionSummary,
   AccordionDetails,

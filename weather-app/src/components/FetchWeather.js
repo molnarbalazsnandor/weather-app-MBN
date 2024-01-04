@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   WEATHER_API_KEY,
   CURRENT_WEATHER_URL,
@@ -242,13 +242,13 @@ export const formatTimeWithTimeZone = (timestamp, timezone) => {
 
 const FetchWeather = ({
   selectedCity,
-  setError,
   setWeather,
   setHourlyForecast,
   setWeeklyForecast,
   setLoadingSuggestions,
   setSuggestions,
 }) => {
+  const [error, setError] = useState(null);
   const { dispatch } = useWeatherContext();
 
   useEffect(() => {
@@ -260,7 +260,14 @@ const FetchWeather = ({
       setWeeklyForecast,
       dispatch
     );
-  }, [selectedCity, dispatch]);
+  }, [
+    selectedCity,
+    setError,
+    setWeather,
+    setHourlyForecast,
+    setWeeklyForecast,
+    dispatch,
+  ]);
 
   return null;
 };

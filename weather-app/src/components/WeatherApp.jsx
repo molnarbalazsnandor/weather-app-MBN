@@ -18,7 +18,6 @@ function WeatherApp() {
   const [weather, setWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
-  const [error, setError] = useState(null);
 
   return (
     <Box className="weather-app">
@@ -33,7 +32,6 @@ function WeatherApp() {
           {selectedCity && (
             <FetchWeather
               selectedCity={selectedCity}
-              setError={setError}
               weather={weather}
               setWeather={setWeather}
               setHourlyForecast={setHourlyForecast}

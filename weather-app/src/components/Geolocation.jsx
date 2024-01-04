@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { geoApiOptions, GEO_API_URL } from "../api";
 
 const Geolocation = ({ setSelectedCity }) => {
