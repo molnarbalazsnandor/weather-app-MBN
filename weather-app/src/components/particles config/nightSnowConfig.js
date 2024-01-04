@@ -1,8 +1,11 @@
 const snowConfig = {
   background: {
     color: {
-      value: "rgba(11,19,30,1)",
+      value: "transparent",
     },
+    image:
+      "radial-gradient(circle at 50% 200%, rgba(112,188,206,1) 0%, rgba(18,30,47,1) 70%)",
+    position: "100% 100%",
     repeat: "",
     size: "",
     opacity: 1,
