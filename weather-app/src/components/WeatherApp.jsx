@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./WeatherApp.css";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import GeoDbAutocomplete from "./GeoDbAutocomplete";
 import Geolocation from "./Geolocation";
 import FetchWeather from "./FetchWeather";

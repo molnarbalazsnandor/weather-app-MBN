@@ -2,7 +2,7 @@
   /*   background-color: #0B131E; */
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: flex-start;
   height: 100vh;
   width: auto;
@@ -31,7 +31,7 @@
     .forecast-day {
       display: flex;
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       justify-content: space-between;
       height: 100%;
       width: 60vw;

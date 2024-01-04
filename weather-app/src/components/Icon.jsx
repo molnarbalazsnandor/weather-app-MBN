@@ -85,9 +85,6 @@ const weatherIconsNight = {
 
 const Icon = ({ weather, style }) => {
   const [isDay, setIsDay] = useState(true);
-  const [currentTime, setCurrentTime] = useState("");
-  const [sunsetTime, setSunsetTime] = useState("");
-  const [sunriseTime, setSunriseTime] = useState("");
 
   const { state } = useWeatherContext();
 
