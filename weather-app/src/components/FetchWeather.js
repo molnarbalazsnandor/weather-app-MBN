@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { useState, useEffect } from "react";
 import {
   WEATHER_API_KEY,
