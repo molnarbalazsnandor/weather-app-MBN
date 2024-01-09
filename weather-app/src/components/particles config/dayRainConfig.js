@@ -38,13 +38,13 @@ const rainConfig = {
       },
     },
     color: {
-      value: "#fff",
+      value: "#5779e3",
     },
     shape: {
       type: "circle",
       stroke: {
-        width: 0,
-        color: "#000000",
+        width: 1,
+        color: "#5779e3",
       },
       polygon: {
         nb_sides: 5,
@@ -66,7 +66,7 @@ const rainConfig = {
       },
     },
     size: {
-      value: 0.5,
+      value: 2,
       random: true,
       anim: {
         enable: false,
