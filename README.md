@@ -12,5 +12,6 @@ Used packages:
 - @mui/system
 - react-select; react-select-async-paginate, react-card-flip
 - react-tsparticles (@1.42.1, important!)
+- firebase-tools
 
 SunsetTime, sunriseTime and timezone were managed by a Reducer in a Context, for these would have require prop drilling otherwise, and were not part of any conditional rendering.
