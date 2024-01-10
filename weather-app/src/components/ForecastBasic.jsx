@@ -109,6 +109,7 @@ function ForecastBasic({ weather }) {
           style={{
             width: "100%",
             maxHeight: "20vh",
+            minHeight: "120px",
             height: "auto",
           }}
           weather={weather}
