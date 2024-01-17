@@ -44,8 +44,13 @@ const GeoDbAutocomplete = ({ onCitySelect }) => {
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? "#3699FF" : "#676984",
-      color: state.isFocused ? "white" : "black",
+      backgroundColor: state.isFocused ? "#3699FF" : "#2e3d54",
+      color: state.isFocused ? "white" : "#9399a2",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 10,
+      backgroundColor: "#2e3d54",
     }),
   };
 
